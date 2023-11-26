@@ -6,7 +6,7 @@ const config = {
 
     },
     production: {
-        clickupURL: 'https://app.clickup.com/api?client_id=2ZWCX9X52VVNJ4G4JSOYN0V0ZAXSSRNN&redirect_uri=dainty-praline-75f6cc.netlify.app/signup.html',
+        clickupURL: 'https://app.clickup.com/api?client_id=2ZWCX9X52VVNJ4G4JSOYN0V0ZAXSSRNN&redirect_uri=send2clickup.netlify.app/signup.html',
         clickupSecret: 'NTL68L3C3H2FEDDE6ILHWKSYZAEP6JBSGEX4NRYW8MYCL9ULZ3Y7BATOVKAYF1B5',
         airtable: 'pat8dFR91yJvAxN6v.b6879b08bd9556bcb2c7411e4a37208cc4336f8aef771db1e2a2b7ee3c1b0360'
     },
