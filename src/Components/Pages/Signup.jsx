@@ -3,24 +3,17 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import { TrelloPowerUpIframe } from "../Trello/trello";
+import { storeAuth } from "../Trello/trello";
 const Signup =()=>{
-    TrelloPowerUpIframe();
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const savedCode = (authorizationCode) =>{
-      let t = window.TrelloPowerUp.iframe();
-           return t.set("card", "shared", "code", authorizationCode).then(function () {
-            t.closePopup();})
-    }
     useEffect(() => {
         const extractCodeFromURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
-            
             if (authorizationCode) {
-            
+                storeAuth(authorizationCode);
                 alert("Code: " + authorizationCode);
                 setCode(authorizationCode);
                 localStorage.setItem('code', authorizationCode);
@@ -34,7 +27,6 @@ const Signup =()=>{
                 }
 
                 // navigate('/send2clickup.html');
-                savedCode(authorizationCode);
             }
         };
     

@@ -27,15 +27,9 @@ let TrelloPowerUp = () => {
         })
 } 
 
- let TrelloPowerUpIframe = () => {
-var t = window.TrelloPowerUp.iframe();
-return t.set('member', 'private', 'code', 'kl3j4l32k4jl2k34jl3kj4l2').then(()=>{
-t.getAll().then(function (data) {
-    console.log(data);
-  console.log(JSON.stringify(data, null, 2));
-});
-})
+let storeAuth = (code) => {
+let t = window.TrelloPowerUp.iframe();
+return t.storeSecret('clickupAuth', code);
+}
 
- }
-
-export {TrelloPowerUp, TrelloPowerUpIframe};
+export {TrelloPowerUp, storeAuth};
