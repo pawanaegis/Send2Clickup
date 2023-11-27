@@ -43,7 +43,7 @@ let getAuth = () => {
 }
 
 let oAuth = () => {
-var t = TrelloPowerUp.iframe();
+var t = window.TrelloPowerUp.iframe();
 
 var oauthUrl = `${config.clickupURL}`
 
