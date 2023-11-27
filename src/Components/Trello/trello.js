@@ -55,8 +55,7 @@ var authorizeOpts = {
  t.authorize(oauthUrl, authorizeOpts)
     .then(function (token) {
         console.log(token);
-      return t
-        .set("organization", "private", "token", token)
+ t.set("organization", "private", "token", token)
         .catch(t.NotHandled, function () {
           // fall back to storing at board level
           return t.set("board", "private", "token", token);
@@ -66,7 +65,7 @@ var authorizeOpts = {
       // now that the token is stored, we can close this popup
       // you might alternatively choose to open a new popup
       console.log("Storing complete");
-      return t.closePopup();
+      t.closePopup();
     });
 }
 export {TrelloPowerUp, storeAuth, getAuth, oAuth};
