@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {TrelloPowerUp, TrelloPowerUpIframe} from "../Trello/trello";
+import { TrelloPowerUpIframe} from "../Trello/trello";
 
 const Home =()=>{
-    TrelloPowerUp();
+    // TrelloPowerUp();
     TrelloPowerUpIframe();
     return(
         <div>
