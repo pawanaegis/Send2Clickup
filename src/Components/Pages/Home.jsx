@@ -6,7 +6,7 @@ const Home =()=>{
         'card-buttons': function(t, options) {
           return [{
             icon: '../Assets/logo192.png',
-            text: 'Signup',
+            text: 'Send2Clickup',
             callback: function(t) {
               return t.popup({
                 title: 'Send2Clickup',
