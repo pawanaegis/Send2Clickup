@@ -15,14 +15,13 @@ const Signup =()=>{
           const authorizationCode = urlParams.get('code');
     
           if (authorizationCode) {
-            // Update the state with the authorization code
+
             setCode(authorizationCode);
     
-            // Store the authorization code in local storage
             localStorage.setItem('code', authorizationCode);
-    
-            // Close the new window if the code is present
+
             setIsLoading(false);
+
             window.close();
             navigate('/send2clickup.html');
             if (window.opener) {
@@ -47,7 +46,7 @@ const Signup =()=>{
           // Extract the code when the new window is closed
           extractCodeFromURL();
         };
-    
+       
         // Add the event listener
         window.addEventListener('beforeunload', closeWindowListener);
     
@@ -56,15 +55,18 @@ const Signup =()=>{
           window.removeEventListener('beforeunload', closeWindowListener);
         };
       }, [code,isLoading,navigate]);
+
+
     const handleLogin = () => {
         // Open the authorization URL in a new window
         const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
         setIsLoading(true);
-        // Optional: Focus on the new window
         if (newWindow) {
           newWindow.focus();
         }
       };
+
+
     return(
         <>
     <h1>Send2Clickup</h1>
@@ -72,11 +74,24 @@ const Signup =()=>{
     <Button variant="contained" color="success" disableElevation>Connected</Button>
     </>: <Button
       variant="contained"
-      color="primary"
+      color={'primary'}
       disableElevation
       onClick={handleLogin}
       disabled={isLoading}
       startIcon={isLoading && <CircularProgress size={20} color="inherit" />}
+      sx={{
+        '&.Mui-disabled': {
+            backgroundColor: '#FF00FF', // Red color for disabled state
+            color: '#FFFFFF', // Text color for disabled state
+            fontWeight: 'bold',
+        },
+        '&:hover': {
+            backgroundColor: '#FF00FF', // Red color for hover state
+        }, 
+        '&.MuiButton-root': {
+            fontWeight: 'bold',
+        }
+    }}
     >
       {isLoading ? 'Connecting...' : 'Connect ClickUp'}
     </Button>}</div>
