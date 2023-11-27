@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-// import config from "../../config/config";
+import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 const Signup =()=>{
     const [code, setCode] = useState(null);
@@ -9,6 +9,13 @@ const Signup =()=>{
     const navigate = useNavigate();
 
     useEffect(() => {
+      window.TrelloPowerUp.initialize({
+        "card-buttons": function (t, opts) {
+          var context = t.getContext();
+          console.log(JSON.stringify(context, null, 2));
+          return [];
+        },
+      });
         const extractCodeFromURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
@@ -59,37 +66,15 @@ const Signup =()=>{
         }
     };
 
-    // const handleLogin = () => {
-    //     // Open the authorization URL in a new window
-    //     const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
-    //     setIsLoading(true);
+    const handleLogin = () => {
+        // Open the authorization URL in a new window
+        const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
+        setIsLoading(true);
 
-    //     if (newWindow) {
-    //         newWindow.focus();
-    //     }
-    // };
-    
-    var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
-
-var btnCallback = function (t, opts) {
-  return t.popup({
-    title: 'Clickup Page',
-    url: './send2clickup.html',
-    args: { myArgs: 'You can access these with t.arg()' },
-    height: 300 // initial height, can be changed later
-  });
-};
-
-window.TrelloPowerUp.initialize({
-  'card-buttons': function (t, opts) {
-    return [{
-      icon: GRAY_ICON,
-      text: 'CLickup',
-      callback: btnCallback
-    }];
-  }
-});
-
+        if (newWindow) {
+            newWindow.focus();
+        }
+    };
 
     return(
         <>
@@ -100,7 +85,7 @@ window.TrelloPowerUp.initialize({
       variant="contained"
       color={'primary'}
       disableElevation
-      onClick={btnCallback}
+      onClick={handleLogin}
       disabled={isLoading}
       startIcon={isLoading && <CircularProgress size={20} color="inherit" />}
       sx={{
