@@ -31,6 +31,7 @@ let TrelloPowerUp = () => {
 var t = window.TrelloPowerUp.iframe();
 return t.getAll()
 .then(function (data) {
+    console.log(data);
   console.log(JSON.stringify(data, null, 2));
 });
  }
