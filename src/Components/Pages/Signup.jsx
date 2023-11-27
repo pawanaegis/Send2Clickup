@@ -7,33 +7,35 @@ const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+    const savedCode = (authorizationCode) =>{
+      let t = window.TrelloPowerUp.iframe();
+           return t.set("card", "shared", "code", authorizationCode).then(function () {
+            t.closePopup();})
+    }
     useEffect(() => {
         const extractCodeFromURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
-
+            
             if (authorizationCode) {
+            
+                alert("Code: " + authorizationCode);
                 setCode(authorizationCode);
                 localStorage.setItem('code', authorizationCode);
                 setIsLoading(false);
 
                 // Close the new window
                 window.close();
-
-                // Close the Trello popup (if using TrelloPowerUp)
-                let t = window.TrelloPowerUp.iframe();
-                t.closePopup();
-
                 // Communicate the code to the main Trello page
                 if (window.opener) {
                     window.opener.postMessage({ code: authorizationCode }, '*');
                 }
 
                 // navigate('/send2clickup.html');
+                savedCode(authorizationCode);
             }
         };
-
+    
         // Check if the authorization code is already in local storage
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
@@ -42,7 +44,7 @@ const Signup =()=>{
         } else {
             extractCodeFromURL();
         }
-
+  
         // Listen for messages from the new window or iframe
         window.addEventListener('message', handleMessage);
 
