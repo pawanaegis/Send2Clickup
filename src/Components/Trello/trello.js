@@ -29,7 +29,7 @@ let TrelloPowerUp = () => {
 
  let TrelloPowerUpIframe = () => {
 var t = window.TrelloPowerUp.iframe();
-return t.get('board', 'shared', 'myKey')
+return t.get('card', 'shared')
 .then(function (data) {
   console.log(JSON.stringify(data, null, 2));
 });
