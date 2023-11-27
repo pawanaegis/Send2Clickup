@@ -1,65 +1,18 @@
-import React,{useState, useEffect} from "react";
+import React,{useState} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
-import { useNavigate } from 'react-router-dom';
-import { getAuth, storeAuth } from "../Trello/trello";
+import { oAuth } from "../Trello/trello";
+// import { useNavigate } from 'react-router-dom';
+// import { getAuth, storeAuth } from "../Trello/trello";
 const Signup =()=>{
-    const [code, setCode] = useState(null);
+     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
-    const navigate = useNavigate();
-    useEffect(() => {
-        const extractCodeFromURL = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const authorizationCode = urlParams.get('code');
-            if (authorizationCode) {
-                storeAuth(authorizationCode);
-                console.log(getAuth());
-                console.log("extracted code run"
-                );
-                alert("Code: " + authorizationCode);
-                setCode(authorizationCode);
-                localStorage.setItem('code', authorizationCode);
-                setIsLoading(false);
+    // const navigate = useNavigate();
 
-                // Close the new window
-                window.close();
-                // Communicate the code to the main Trello page
-                if (window.opener) {
-                    window.opener.postMessage({ code: authorizationCode }, '*');
-                }
-
-                // navigate('/send2clickup.html');
-            }
-        };
-    
-        // Check if the authorization code is already in local storage
-        const storedCode = localStorage.getItem('code');
-        if (storedCode) {
-           storeAuth(storedCode);
-            setCode(storedCode);
-            // navigate('/send2clickup.html');
-            console.log("store code run");
-            window.close();
-        } else {
-            extractCodeFromURL();
-        }
-  
-        // Listen for messages from the new window or iframe
-        window.addEventListener('message', handleMessage);
-
-        // Clean up event listeners when the component is unmounted
-        return () => {
-            window.removeEventListener('message', handleMessage);
-        };
-    }, [navigate]);
-
-    const handleMessage = (event) => {
-        // Handle messages from the new window or iframe
-        if (event.data && event.data.code) {
-            setCode(event.data.code);
-        }
-    };
+    oAuth().then(()=>{
+      setCode(1);
+    });
 
     const handleLogin = () => {
         // Open the authorization URL in a new window
