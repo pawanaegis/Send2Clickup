@@ -61,12 +61,12 @@ const Signup =()=>{
 
     const handleLogin = () => {
         // Open the authorization URL in a new window
-        const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
+         window.location.href = `${config.clickupURL}`;
         setIsLoading(true);
 
-        if (newWindow) {
-            newWindow.focus();
-        }
+        // if (newWindow) {
+        //     newWindow.focus();
+        // }
     };
 
 
