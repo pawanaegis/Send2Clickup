@@ -1,36 +1,36 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 
 export default function Send2Clickup() {
-    // const [cardId, setCardId] = useState('Not Found!!');
+    const [cardId, setCardId] = useState('Not Found!!');
 
-    // useEffect(() => {
-    //   // Use the Power-Up API to get context information
-    //   window.TrelloPowerUp.initialize({
-    //     'card-badges': function (t, options) {
-    //       // Get the card ID from the context
-    //       const cardId = options.card.id;
-    //       setCardId(cardId);
+    useEffect(() => {
+      // Use the Power-Up API to get context information
+      window.TrelloPowerUp.initialize({
+        'card-badges': function (t, options) {
+          // Get the card ID from the context
+          const cardId = options.card.id;
+          setCardId(cardId);
           
-    //       // You can do more with the card information here, such as making additional API calls
-    //       // to get more details about the card
-    //       // ...
+          // You can do more with the card information here, such as making additional API calls
+          // to get more details about the card
+          // ...
   
-    //       // Return a promise that resolves to the card badge data
-    //       return t.card('id').get('id').then((cardId) => {
-    //         return [{
-    //           // Display information on the card
-    //           text: `Card ID: ${cardId}`,
-    //           color: 'green',
-    //         }];
-    //       });
-    //     },
-    //   });
-    // }, []);
+          // Return a promise that resolves to the card badge data
+          return t.card('id').get('id').then((cardId) => {
+            return [{
+              // Display information on the card
+              text: `Card ID: ${cardId}`,
+              color: 'green',
+            }];
+          });
+        },
+      });
+    }, []);
   return (
     <>
     <h1>Send2Clickup</h1>
      <div>
-        <p>CardID:{""}</p>
+        <p>CardID:{cardId}</p>
         <form action="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" method="POST">
             <input type="text" name="name" placeholder="Task name" />
             <input type="text" name="description" placeholder="Task description" />
