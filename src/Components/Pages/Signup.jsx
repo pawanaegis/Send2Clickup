@@ -67,7 +67,7 @@ const Signup =()=>{
       };
     return(
         <>
-    <h1>Send2ClickUP PowerUp</h1>
+    <h1>Send2Clickup</h1>
     <div>{code?<>
     <Button variant="contained" color="success" disableElevation>Connected</Button>
     </>: <Button
