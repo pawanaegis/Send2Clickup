@@ -8,7 +8,6 @@ const Signup =()=>{
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(config.clickupURL);
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
@@ -23,6 +22,8 @@ const Signup =()=>{
             setIsLoading(false);
 
             window.close();
+            let t = window.TrelloPowerUp.iframe();
+            t.closePopup();
             navigate('/send2clickup.html');
             if (window.opener) {
                 window.opener.location.reload();
@@ -33,26 +34,24 @@ const Signup =()=>{
         // Check if the authorization code is already in local storage
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
-          // If it's present, update the state with the stored code
-          setCode(storedCode);
-          navigate('/send2clickup.html');
+            setCode(storedCode);
+            navigate('/send2clickup.html');
         } else {
-          // If not, extract the code from the URL
-          extractCodeFromURL();
+            extractCodeFromURL();
         }
-    
-        // Add an event listener for when the new window is closed
-        const closeWindowListener = () => {
-          // Extract the code when the new window is closed
-          extractCodeFromURL();
-        };
-       
-        // Add the event listener
-        window.addEventListener('beforeunload', closeWindowListener);
-    
-        // Clean up the event listener when the component is unmounted
+
+
+        // Check if the new window is closed periodically
+        const checkWindowClosed = setInterval(() => {
+            if (!code && isLoading && window.closed) {
+                setIsLoading(false);
+                console.log(isLoading);
+            }
+        }, 500); // Adjust the interval as needed
+
+        // Clean up the interval when the component is unmounted
         return () => {
-          window.removeEventListener('beforeunload', closeWindowListener);
+            clearInterval(checkWindowClosed);
         };
       }, [code,isLoading,navigate]);
 
