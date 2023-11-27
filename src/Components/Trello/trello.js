@@ -3,14 +3,14 @@ import config from "../../config/config";
 
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
-        "board-buttons": function (t, opts) {
-          return t.board("all").then(function (board) {
-            console.log(JSON.stringify(board, null, 2));
-          });
-        },
+        // "board-buttons": function (t, opts) {
+        //   return t.board("all").then(function (board) {
+        //     console.log(JSON.stringify(board, null, 2));
+        //   });
+        // },
           'card-buttons': function(t, options) {
-            var context = t.getContext();
-            console.log(JSON.stringify(context, null, 2));
+            // var context = t.getContext();
+            // console.log(JSON.stringify(context, null, 2));
             return [{
               icon: config.appLogo,
               text: 'Send2Clickup',
@@ -29,9 +29,16 @@ let TrelloPowerUp = () => {
 
 let storeAuth = (code) => {
 let t = window.TrelloPowerUp.iframe();
-return t.storeSecret('clickupAuth', code).then(()=>{
+return t.storeSecret('clickupAuth', code).then((code)=>{
     console.log("token saved",code);
 });
 }
+let getAuth = () => {
+    let t = window.TrelloPowerUp.iframe();
+    return t.loadSecret('clickupAuth').then((secret)=>{
+        console.log(secret);
+        return secret;
+    })
 
-export {TrelloPowerUp, storeAuth};
+}
+export {TrelloPowerUp, storeAuth, getAuth};
