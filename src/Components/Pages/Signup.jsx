@@ -33,6 +33,7 @@ const Signup =()=>{
         // Check if the authorization code is already in local storage
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
+           storeAuth(storedCode);
             setCode(storedCode);
             // navigate('/send2clickup.html');
         } else {

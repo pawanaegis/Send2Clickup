@@ -29,7 +29,9 @@ let TrelloPowerUp = () => {
 
 let storeAuth = (code) => {
 let t = window.TrelloPowerUp.iframe();
-return t.storeSecret('clickupAuth', code);
+return t.storeSecret('clickupAuth', code).then(()=>{
+    console.log("token saved",code);
+});
 }
 
 export {TrelloPowerUp, storeAuth};
