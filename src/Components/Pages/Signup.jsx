@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import config from "../../config/config";
+// import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 const Signup =()=>{
     const [code, setCode] = useState(null);
@@ -59,14 +59,23 @@ const Signup =()=>{
         }
     };
 
-    const handleLogin = () => {
-        // Open the authorization URL in a new window
-         window.location.href = `${config.clickupURL}`;
-        setIsLoading(true);
+    // const handleLogin = () => {
+    //     // Open the authorization URL in a new window
+    //     const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
+    //     setIsLoading(true);
 
-        // if (newWindow) {
-        //     newWindow.focus();
-        // }
+    //     if (newWindow) {
+    //         newWindow.focus();
+    //     }
+    // };
+
+    var btnCallback = function (t, opts) {
+      return t.popup({
+        title: 'Change Snooze Time',
+        url: './send2clickup.html',
+        args: { myArgs: 'You can access these with t.arg()' },
+        height: 300 // initial height, can be changed later
+      });
     };
 
 
@@ -79,7 +88,7 @@ const Signup =()=>{
       variant="contained"
       color={'primary'}
       disableElevation
-      onClick={handleLogin}
+      onClick={btnCallback}
       disabled={isLoading}
       startIcon={isLoading && <CircularProgress size={20} color="inherit" />}
       sx={{
