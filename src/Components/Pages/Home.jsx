@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import config from "../../config/config";
 
 const Home =()=>{
     window.TrelloPowerUp.initialize({
         'card-buttons': function(t, options) {
           return [{
-            icon: '../Assets/logo192.png',
+            icon: config.appLogo,
             text: 'Send2Clickup',
             callback: function(t) {
               return t.popup({
