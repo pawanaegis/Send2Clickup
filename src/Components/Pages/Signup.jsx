@@ -3,7 +3,9 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
+import { TrelloPowerUpIframe } from "../Trello/trello";
 const Signup =()=>{
+    TrelloPowerUpIframe();
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
