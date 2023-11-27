@@ -5,6 +5,8 @@ import config from "../../config/config";
 const Home =()=>{
     window.TrelloPowerUp.initialize({
         'card-buttons': function(t, options) {
+          var context = t.getContext();
+          console.log(JSON.stringify(context, null, 2));
           return [{
             icon: config.appLogo,
             text: 'Send2Clickup',

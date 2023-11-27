@@ -9,13 +9,6 @@ const Signup =()=>{
     const navigate = useNavigate();
 
     useEffect(() => {
-      window.TrelloPowerUp.initialize({
-        "card-buttons": function (t, opts) {
-          var context = t.getContext();
-          console.log(JSON.stringify(context, null, 2));
-          return [];
-        },
-      });
         const extractCodeFromURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
