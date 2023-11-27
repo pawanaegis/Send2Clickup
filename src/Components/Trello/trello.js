@@ -55,7 +55,7 @@ var authorizeOpts = {
  t.authorize(oauthUrl, authorizeOpts)
     .then(function (token) {
         console.log(token);
- t.set("organization", "private", "token", token)
+ t.set("member", "private", "token", token)
         .catch(t.NotHandled, function () {
           // fall back to storing at board level
           return t.set("board", "private", "token", token);
