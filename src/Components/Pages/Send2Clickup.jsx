@@ -1,27 +1,12 @@
-import React,{useState, useEffect} from 'react'
+import React from 'react'
 
 export default function Send2Clickup() {
-    const [cardId, setCardId] = useState('Not Found!!');
-
-    useEffect(() => {
-      window.TrelloPowerUp.initialize({
-        'card-badges': function (t, options) {
-          const cardId = options.card.id;
-          setCardId(cardId);
-          return t.card('id').get('id').then((cardId) => {
-            return [{
-              text: `Card ID: ${cardId}`,
-              color: 'green',
-            }];
-          });
-        },
-      });
-    }, []);
+  
   return (
     <>
     <h3>Send2Clickup Card Preview</h3>
      <div>
-        <p>CardID:{cardId}</p>
+        <p>CardID:{}</p>
         
             <textarea name="text" id="cardTitle" cols="30" rows="10" placeholder='Title of card'></textarea>
             <textarea name="text" id="cardDescription" cols="30" rows="10" placeholder='Card Description'></textarea>

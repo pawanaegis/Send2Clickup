@@ -27,4 +27,12 @@ let TrelloPowerUp = () => {
         })
 } 
 
-    export default TrelloPowerUp;
+ let TrelloPowerUpIframe = () => {
+var t = window.TrelloPowerUp.iframe();
+return t.get('board', 'shared', 'myKey')
+.then(function (data) {
+  console.log(JSON.stringify(data, null, 2));
+});
+ }
+
+export {TrelloPowerUp, TrelloPowerUpIframe};
