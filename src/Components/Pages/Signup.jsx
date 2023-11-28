@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import config from "../../config/config";
+// import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import { oAuth } from "../Trello/trello";
 const Signup =()=>{
