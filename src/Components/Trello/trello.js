@@ -54,8 +54,6 @@ var authorizeOpts = {
 };
 const oauthUrl =encodeURI(url)
 console.log(url);
-const authBtn = document.getElementById("authorize");
-authBtn.addEventListener("click", function () {
   t.authorize(oauthUrl, authorizeOpts)
     .then(function (token) {
       console.log(token);
@@ -72,7 +70,6 @@ authBtn.addEventListener("click", function () {
       console.log("popup close called");
       return t.closePopup();
     });
-});
 }
 
 export {TrelloPowerUp, getAllData, oAuth};
