@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import { oAuth } from "../Trello/trello";
 import config from "../../config/config";
 // import { useNavigate } from 'react-router-dom';
 const Signup =()=>{
@@ -49,7 +50,7 @@ const Signup =()=>{
      
 const handleLogin = () => {
          // Open the authorization URL in a new window
-         window.location.href = config.clickupURL;
+         oAuth(config.clickupURL);
          setIsLoading(true);
       };
 
