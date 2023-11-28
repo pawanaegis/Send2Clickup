@@ -53,13 +53,13 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let storeAuth = (t,code) => {
+let storeAuth = (code) => {
 return t.storeSecret('clickupAuth', code).then((code)=>{
     console.log("token saved",code);
 });
 }
 
-let getAuth = (t) => {
+let getAuth = () => {
     return t.loadSecret('clickupAuth').then((secret)=>{
         console.log(secret);
         return secret;
