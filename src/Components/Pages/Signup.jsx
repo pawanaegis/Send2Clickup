@@ -4,6 +4,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import { getAllData } from "../Trello/trello";
+import Cookies from 'js-cookie';
+
+
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -19,9 +22,7 @@ const Signup =()=>{
             setCode(authorizationCode);
             
             localStorage.setItem('code', authorizationCode);
-            const token = authorizationCode;
-            window.postMessage({ type: 'code', token }, '*');
-
+            Cookies.set('token', authorizationCode, { expires: 7, secure: true });
             window.close();
             // navigate('/send2clickup.html');
             if (window.opener) {
