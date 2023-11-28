@@ -16,7 +16,7 @@ let TrelloPowerUp = () => {
               callback: function(t) {
                 return t.popup({
                   title: 'Send2Clickup',
-                  url: config.clickupURL,
+                  url: './signup.html',
                   height: 300
                 })
               }
