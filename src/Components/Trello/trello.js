@@ -1,6 +1,6 @@
 import config from "../../config/config";
 
-let oAuth = () => {
+let oAuth = (token) => {
   var t = window.TrelloPowerUp.iframe();
   var oauthUrl = `${config.clickupURL}`
   
@@ -38,7 +38,13 @@ let TrelloPowerUp = () => {
             return [{
               icon: config.appLogo,
               text: 'Send2Clickup',
-              callback: oAuth()
+              callback: function(t) {
+                return t.popup({
+                  title: 'Send2Clickup',
+                  url: './signup.html',
+                  height: 300
+                })
+              }
             }]
           
           }
