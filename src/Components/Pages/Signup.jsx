@@ -2,27 +2,20 @@ import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
-import { useNavigate } from 'react-router-dom';
-import { getAllData } from "../Trello/trello";
+// import { useNavigate } from 'react-router-dom';
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     useEffect(() => {
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
-          const authorizationCode = urlParams.get('code');
-          if(authorizationCode){
-            getAllData();
-          }
-          
+          const authorizationCode = urlParams.get('code');   
           if (authorizationCode) {
             setCode(authorizationCode);
-            
             localStorage.setItem('code', authorizationCode);
             setIsLoading(false);
-
             window.close();
             // navigate('/send2clickup.html');
             if (window.opener) {
@@ -51,16 +44,31 @@ const Signup =()=>{
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading,navigate]);
+      }, [code,isLoading]);
 
      
-    const handleLogin = () => {
-        // Open the authorization URL in a new window
-        const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
-        setIsLoading(true);
-        if (newWindow) {
-          newWindow.focus();
-        }
+const handleLogin = () => {
+         // Open the authorization URL in a new window
+  const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
+  setIsLoading(true);
+
+  if (newWindow) {
+    newWindow.focus();
+
+    // Add event listener to listen for messages from the new window
+    window.addEventListener('message', (event) => {
+      // Check if the message is from the new window
+      if (event.source === newWindow) {
+        // Update local storage with the authorization code
+        localStorage.setItem('code', event.data.authorizationCode);
+
+        // Update state and close the new window
+        setCode(event.data.authorizationCode);
+        setIsLoading(false);
+        newWindow.close();
+      }
+    });
+  }
       };
 
 
