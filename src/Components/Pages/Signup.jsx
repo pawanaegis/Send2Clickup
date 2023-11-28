@@ -49,26 +49,8 @@ const Signup =()=>{
      
 const handleLogin = () => {
          // Open the authorization URL in a new window
-  const newWindow = window.open(`${config.clickupURL}`, '_blank', 'width=640,height=480');
-  setIsLoading(true);
-
-  if (newWindow) {
-    newWindow.focus();
-
-    // Add event listener to listen for messages from the new window
-    window.addEventListener('message', (event) => {
-      // Check if the message is from the new window
-      if (event.source === newWindow) {
-        // Update local storage with the authorization code
-        localStorage.setItem('code', event.data.authorizationCode);
-
-        // Update state and close the new window
-        setCode(event.data.authorizationCode);
-        setIsLoading(false);
-        newWindow.close();
-      }
-    });
-  }
+         window.location.href = config.clickupURL;
+         setIsLoading(true);
       };
 
 
