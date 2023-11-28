@@ -13,6 +13,7 @@ const Signup =()=>{
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
+          getAllData();
     
           if (authorizationCode) {
             setCode(authorizationCode);
@@ -53,7 +54,7 @@ const Signup =()=>{
         };
       }, [code,isLoading,navigate]);
 
-     getAllData();
+     
     const handleLogin = () => {
         // Open the authorization URL in a new window
         const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
