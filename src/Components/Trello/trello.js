@@ -53,10 +53,10 @@ var authorizeOpts = {
   width: 580,
 };
 const oauthUrl =encodeURI(url)
-console.log(url);
+console.log(oauthUrl);
+let fun = function () {
   t.authorize(oauthUrl, authorizeOpts)
     .then(function (token) {
-      console.log(token);
       return t
         .set("organization", "private", "token", token)
         .catch(t.NotHandled, function () {
@@ -67,9 +67,10 @@ console.log(url);
     .then(function () {
       // now that the token is stored, we can close this popup
       // you might alternatively choose to open a new popup
-      console.log("popup close called");
       return t.closePopup();
     });
+};
+fun();
 }
 
 export {TrelloPowerUp, getAllData, oAuth};
