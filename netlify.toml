@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/path/to/specific/route/*"
+    [headers.values]
+    X-Custom-Header = "https://app.clickup.com/"
