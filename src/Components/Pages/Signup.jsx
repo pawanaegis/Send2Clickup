@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import { getAllData, storeAuth } from "../Trello/trello";
+import { getAllData } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -19,7 +19,6 @@ const Signup =()=>{
             setCode(authorizationCode);
             
             localStorage.setItem('code', authorizationCode);
-            storeAuth(authorizationCode);
             setIsLoading(false);
 
             window.close();
@@ -35,7 +34,6 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             // navigate('/send2clickup.html');
-            storeAuth(storedCode);
         } else {
             extractCodeFromURL();
         }
@@ -44,7 +42,6 @@ const Signup =()=>{
         const checkWindowClosed = setInterval(() => {
             if (isLoading && window.closed) {
                 setIsLoading(false);
-                storeAuth(storedCode);
             }
         }, 500); // Adjust the interval as needed
 
