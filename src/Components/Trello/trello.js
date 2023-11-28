@@ -1,5 +1,7 @@
 import config from "../../config/config";
 
+var t = window.TrelloPowerUp.iframe();
+
 let oAuth = (token) => {
   var t = window.TrelloPowerUp.iframe();
   var oauthUrl = `${config.clickupURL}`
@@ -51,15 +53,13 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let storeAuth = (code) => {
-var t = window.TrelloPowerUp.iframe();
+let storeAuth = (t,code) => {
 return t.storeSecret('clickupAuth', code).then((code)=>{
     console.log("token saved",code);
 });
 }
 
-let getAuth = () => {
-    var t = window.TrelloPowerUp.iframe();
+let getAuth = (t) => {
     return t.loadSecret('clickupAuth').then((secret)=>{
         console.log(secret);
         return secret;
