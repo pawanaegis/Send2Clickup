@@ -8,7 +8,6 @@ const Signup =()=>{
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(config.clickupURL);
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
@@ -17,13 +16,13 @@ const Signup =()=>{
           if (authorizationCode) {
 
             setCode(authorizationCode);
-    
+            
             localStorage.setItem('code', authorizationCode);
 
             setIsLoading(false);
 
             window.close();
-            navigate('/send2clickup.html');
+            // navigate('/send2clickup.html');
             if (window.opener) {
                 window.opener.location.reload();
               }
@@ -34,14 +33,14 @@ const Signup =()=>{
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
             setCode(storedCode);
-            navigate('/send2clickup.html');
+            // navigate('/send2clickup.html');
         } else {
             extractCodeFromURL();
         }
 
         // Check if the new window is closed periodically
         const checkWindowClosed = setInterval(() => {
-            if (!code && isLoading && window.closed) {
+            if (isLoading && window.closed) {
                 setIsLoading(false);
             }
         }, 500); // Adjust the interval as needed
