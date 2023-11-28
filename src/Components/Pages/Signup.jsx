@@ -13,8 +13,10 @@ const Signup =()=>{
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
-          getAllData();
-    
+          if(authorizationCode){
+            getAllData();
+          }
+          
           if (authorizationCode) {
             setCode(authorizationCode);
             
