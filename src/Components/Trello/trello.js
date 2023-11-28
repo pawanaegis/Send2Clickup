@@ -52,14 +52,14 @@ let TrelloPowerUp = () => {
 } 
 
 let storeAuth = (code) => {
-let t = window.TrelloPowerUp.iframe();
+var t = window.TrelloPowerUp.iframe();
 return t.storeSecret('clickupAuth', code).then((code)=>{
     console.log("token saved",code);
 });
 }
 
 let getAuth = () => {
-    let t = window.TrelloPowerUp.iframe();
+    var t = window.TrelloPowerUp.iframe();
     return t.loadSecret('clickupAuth').then((secret)=>{
         console.log(secret);
         return secret;

@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-// import config from "../../config/config";
+import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import { oAuth } from "../Trello/trello";
+import { storeAuth } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const Signup =()=>{
             setCode(authorizationCode);
             
             localStorage.setItem('code', authorizationCode);
-
+            storeAuth(authorizationCode);
             setIsLoading(false);
 
             window.close();
@@ -35,6 +35,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             // navigate('/send2clickup.html');
+            storeAuth(storedCode);
         } else {
             extractCodeFromURL();
         }
@@ -43,6 +44,7 @@ const Signup =()=>{
         const checkWindowClosed = setInterval(() => {
             if (isLoading && window.closed) {
                 setIsLoading(false);
+                storeAuth(storedCode);
             }
         }, 500); // Adjust the interval as needed
 
@@ -55,12 +57,11 @@ const Signup =()=>{
 
     const handleLogin = () => {
         // Open the authorization URL in a new window
-        // const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
-        // setIsLoading(true);
-        // if (newWindow) {
-        //   newWindow.focus();
-        // }
-        oAuth();
+        const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
+        setIsLoading(true);
+        if (newWindow) {
+          newWindow.focus();
+        }
       };
 
 
