@@ -1,22 +1,27 @@
 import React,{useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import { oAuth } from "../Trello/trello";
 import config from "../../config/config";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { getAllData } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
-          const authorizationCode = urlParams.get('code');   
+          const authorizationCode = urlParams.get('code');
+          getAllData();
+    
           if (authorizationCode) {
             setCode(authorizationCode);
+            
             localStorage.setItem('code', authorizationCode);
-            setIsLoading(false);
+            const token = authorizationCode;
+            window.postMessage({ type: 'code', token }, '*');
+
             window.close();
             // navigate('/send2clickup.html');
             if (window.opener) {
@@ -36,22 +41,37 @@ const Signup =()=>{
 
         // Check if the new window is closed periodically
         const checkWindowClosed = setInterval(() => {
-            if (isLoading && window.closed) {
+            if (!code && isLoading && window.closed) {
                 setIsLoading(false);
             }
         }, 500); // Adjust the interval as needed
-
+        
+        window.addEventListener('message', (event) => {
+          // Check if the message is from a trusted origin (replace 'your_child_origin' with the actual origin)
+          if (event.origin === 'your_child_origin') {
+            const { type, token } = event.data;
+        
+            // Check the message type
+            if (type === 'code') {
+              // Store the token in the local storage of the parent window (iframe)
+              localStorage.setItem('code', token);
+            }
+          }
+        });
         // Clean up the interval when the component is unmounted
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading]);
+      }, [code,isLoading,navigate]);
 
      
-const handleLogin = () => {
-         // Open the authorization URL in a new window
-         oAuth(config.clickupURL);
-         setIsLoading(true);
+    const handleLogin = () => {
+        // Open the authorization URL in a new window
+        const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
+        setIsLoading(true);
+        if (newWindow) {
+          newWindow.focus();
+        }
       };
 
 

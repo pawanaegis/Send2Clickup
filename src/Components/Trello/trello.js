@@ -54,7 +54,6 @@ var authorizeOpts = {
 };
 const oauthUrl =encodeURI(url)
 console.log(oauthUrl);
-let fun = function () {
   t.authorize(oauthUrl, authorizeOpts)
     .then(function (token) {
       return t
@@ -69,8 +68,6 @@ let fun = function () {
       // you might alternatively choose to open a new popup
       return t.closePopup();
     });
-};
-fun();
 }
 
 export {TrelloPowerUp, getAllData, oAuth};
