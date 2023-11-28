@@ -26,7 +26,8 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let getAllData = function (t){
+let getAllData = () =>{
+  let t = window.TrelloPowerUp.iframe();
   return t.getAll()
   .then(function (data) {
     console.log(JSON.stringify(data, null, 2));
