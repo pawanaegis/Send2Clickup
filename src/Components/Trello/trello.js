@@ -48,13 +48,19 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let getTrelloCardData = () =>{
+let getTrelloCardData = () => {
   let t = window.TrelloPowerUp.iframe();
-  
-  let context =  t.getContext();  
-  memberId = context.memberId;
-  console.log(memberId);
-  return memberId;
+  let context = t.getContext();
+
+  if (context) {
+    console.log(context);
+    return context.member || "data";
+  } else {
+    console.error("Context is undefined");
+    // Handle the case when context is undefined
+    // You might want to return a default value or throw an error
+    return "defaultData";
+  }
 }
 
 let getTrelloBoardData = () =>{

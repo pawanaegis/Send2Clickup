@@ -38,7 +38,7 @@ const Signup =()=>{
           
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode, Username:getTrelloCardData()}
+            let data2 = {ClickupCode:authorizationCode}
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
@@ -75,6 +75,9 @@ const Signup =()=>{
     const handleLogin = () => {
         // Open the authorization URL in a new window
         const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
+        let userData = {Username:getTrelloCardData()}
+        console.log(userData);
+        registerUser(userData);
         setIsLoading(true);
         if (newWindow) {
           newWindow.focus();
