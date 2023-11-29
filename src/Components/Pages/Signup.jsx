@@ -3,56 +3,78 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { getTrelloCardData } from "../Trello/trello";
+// import axios from 'axios';
+// import { getTrelloCardData } from "../Trello/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const registerUser = async(data) =>{
-      try {
-        const response = await axios.ClickupCodepost(
-          `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-          { fields: data },
-          {
-            headers: {
-              Authorization: `Bearer ${config.airtable_api}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+    // const registerUser = async(data) =>{
+    //   try {
+    //     const response = await axios.ClickupCodepost(
+    //       `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
+    //       { fields: data },
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${config.airtable_api}`,
+    //           'Content-Type': 'application/json',
+    //         },
+    //       }
+    //     );
   
-        console.log('Record created successfully:', response.data);
-        // Handle success, update state, show notification, etc.
-      } catch (error) {
-        console.error('Error creating record:', error);
-        // Handle error, show error message, etc.
+    //     console.log('Record created successfully:', response.data);
+    //     // Handle success, update state, show notification, etc.
+    //   } catch (error) {
+    //     console.error('Error creating record:', error);
+    //     // Handle error, show error message, etc.
+    //   }
+    //  }
+
+    const handleMessage = (event) => {
+      // Ensure the message is from a trusted source (security check)
+      // For production, you might want to validate the origin of the message
+      // and check the message structure.
+      // For simplicity, this example uses '*'.
+      if (event.origin !== window.location.origin) {
+          return;
       }
-     }
-     let memberid = getTrelloCardData();
+
+      // Handle the received data
+      const receivedData = event.data;
+      console.log('Received data from child window:', receivedData);
+      if(typeof receivedData === 'string'){
+        setCode(receivedData);
+      } 
+      setIsLoading(false);
+      // Perform actions based on the received data
+      // For example, update the state with the received data
+      // setCode(receivedData);
+      // ... other actions
+  };
     useEffect(() => {
+
+      
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
           
           if (authorizationCode) {
-            let data2 = {ClickupCode:authorizationCode,trelloMemberId:memberid}
+            let data2 = {ClickupCode:authorizationCode}
             console.log(data2);
+            window.opener.postMessage(authorizationCode, '*');
             localStorage.setItem('code', authorizationCode);
-            registerUser(data2).then(()=>{
               localStorage.removeItem('code');
               navigate('/send2clickup.html');
-              setCode(authorizationCode);
-              window.close();
-            })
-             
+              // setCode(authorizationCode);
+              window.close();         
             }
         };
     
         // Check if the authorization code is already in local storage
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
+          
             setCode(storedCode);
             // navigate('/send2clickup.html');
         } else {
@@ -66,15 +88,18 @@ const Signup =()=>{
             }
         }, 500); // Adjust the interval as needed
         // Clean up the interval when the component is unmounted
+
+        window.addEventListener('message',handleMessage)
         return () => {
             clearInterval(checkWindowClosed);
+            window.removeEventListener('message', handleMessage);
         };
-      }, [code,isLoading,memberid,navigate]);
+      }, [code,isLoading,navigate]);
 
      
     const handleLogin = () => {
         // Open the authorization URL in a new window
-        const newWindow = window.open(`${config.clickupURL}`, '_parent','width=640,height=480');
+        const newWindow = window.open(`${config.clickupURL}`, 'blank','width=640,height=480');
         //let userData = {Username:getTrelloCardData()}
         // console.log(userData);
         // registerUser(userData);
@@ -89,7 +114,8 @@ const Signup =()=>{
         <>
     <h1>Send2Clickup</h1>
     <div>{code?<>
-    <Button variant="contained" color="success" disableElevation>Connected</Button>
+    <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
+    <Button variant="contained" color="error" disableElevation onClick={()=>setCode(null)}>Disconnect</Button>
     </>: <Button
       variant="contained"
       color={'primary'}
