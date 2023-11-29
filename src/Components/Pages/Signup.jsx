@@ -116,6 +116,8 @@ const Signup =()=>{
       // setCode(null)
       // localStorage.removeItem('code');
       registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
+      var t = window.TrelloPowerUp.iframe();
+      t.closePopup();
 
     }}>Disconnect</Button>
     </>: <Button
