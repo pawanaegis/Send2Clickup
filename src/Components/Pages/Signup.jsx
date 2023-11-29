@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getTrelloCardData } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -28,15 +29,14 @@ const Signup =()=>{
         // Handle error, show error message, etc.
       }
      }
+
     useEffect(() => {
         // Function to extract the code from the URL
-      
-        
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
-          
-          
+          const cardData = getTrelloCardData();
+          console.log(cardData);
           if (authorizationCode) {
             setCode(authorizationCode);
             let data2 = {ClickupCode:authorizationCode}
@@ -44,13 +44,10 @@ const Signup =()=>{
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
               localStorage.removeItem('code');
+              navigate('/send2clickup.html');
               window.close();
             })
-            
-            // navigate('/send2clickup.html');
-            if (window.opener) {
-                window.opener.location.reload();
-              }
+             
             }
         };
     
