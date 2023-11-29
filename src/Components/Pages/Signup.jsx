@@ -43,6 +43,7 @@ const Signup =()=>{
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
+              localStorage.removeItem('code');
               window.close();
             })
             
