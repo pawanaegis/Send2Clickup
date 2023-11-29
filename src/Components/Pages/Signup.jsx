@@ -68,16 +68,17 @@ const Signup =()=>{
         };
     
         // Check if the authorization code is already in local storage
-        setCode(localStorage.getItem('code'));
-       if(code === null){ 
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
             setCode(storedCode);
-            registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
+            registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
+              var t = window.TrelloPowerUp.iframe();
+              t.closePopup();
+            });
         } else {
             extractCodeFromURL();
         }
-}
+
         // Check if the new window is closed periodically
         const checkWindowClosed = setInterval(() => {
             if (!code && isLoading && window.closed) {
@@ -114,7 +115,7 @@ const Signup =()=>{
       // localStorage.removeItem('code'); 
       var t = window.TrelloPowerUp.iframe();
       t.closePopup();
-    }}>Disconnect</Button>
+    }}></Button>
     </>: <Button
       variant="contained"
       color={'primary'}
