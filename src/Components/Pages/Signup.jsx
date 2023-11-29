@@ -4,11 +4,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getTrelloCardData } from "../Trello/trello";
+import { getTrelloCardData, getTrelloBoardData } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
+
     const registerUser = async(data) =>{
       try {
         const response = await axios.post(
@@ -36,10 +37,12 @@ const Signup =()=>{
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
           const cardData = getTrelloCardData();
+          const boardData = getTrelloBoardData();
+          console.log(boardData);
           console.log(cardData);
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode}
+            let data2 = {ClickupCode:authorizationCode,Username:cardData.member}
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
