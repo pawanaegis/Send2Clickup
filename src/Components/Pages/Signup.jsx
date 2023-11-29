@@ -68,6 +68,7 @@ const Signup =()=>{
         };
     
         // Check if the authorization code is already in local storage
+        setCode(localStorage.getItem('code'));
        if(code === null){ 
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
