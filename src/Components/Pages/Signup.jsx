@@ -15,7 +15,6 @@ const Signup =()=>{
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
           // getAllData();
-    
           if (authorizationCode) {
             setCode(authorizationCode);
             getAllData();
