@@ -7,12 +7,14 @@ import axios from 'axios';
 import { getTrelloCardData, getTrelloBoardData } from "../Trello/trello";
 const Signup =()=>{
     const [code, setCode] = useState(null);
+    const [member, setMember] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     const cardData = getTrelloCardData();
           const boardData = getTrelloBoardData();
           console.log(boardData);
           console.log(cardData);
+          setMember(cardData.member)
     const registerUser = async(data) =>{
       try {
         const response = await axios.post(
@@ -43,7 +45,7 @@ const Signup =()=>{
           
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode}
+            let data2 = {ClickupCode:authorizationCode, username:member}
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
@@ -74,7 +76,7 @@ const Signup =()=>{
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading,navigate]);
+      }, [code,isLoading,member,navigate]);
 
      
     const handleLogin = () => {
