@@ -7,6 +7,7 @@ import axios from 'axios';
 import { getTrelloCardData } from "../Trello/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
+    let [status,setStatus] = useState("Complete Setup");
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     const registerUser = async(data) =>{
@@ -73,7 +74,6 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             // navigate('/send2clickup.html');
-            registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
         } else {
             extractCodeFromURL();
         }
@@ -111,15 +111,15 @@ const Signup =()=>{
         <>
     <h1>Send2Clickup</h1>
     <div>{code?<>
-    <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
+    <Button variant="contained" color="success" disableElevation disabled={isLoading}>ClickUp Connected</Button>
     <Button variant="contained" color="error" disableElevation onClick={()=>{
       // setCode(null)
       // localStorage.removeItem('code');
-      registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
-      var t = window.TrelloPowerUp.iframe();
-      t.closePopup();
-
-    }}>Disconnect</Button>
+      registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
+        setStatus("Setup completed! Close Popup")
+      });
+      
+    }}>{status}</Button>
     </>: <Button
       variant="contained"
       color={'primary'}
