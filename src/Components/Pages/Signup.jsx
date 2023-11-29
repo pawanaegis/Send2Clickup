@@ -9,7 +9,10 @@ const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+    const cardData = getTrelloCardData();
+          const boardData = getTrelloBoardData();
+          console.log(boardData);
+          console.log(cardData);
     const registerUser = async(data) =>{
       try {
         const response = await axios.post(
@@ -33,17 +36,14 @@ const Signup =()=>{
 
     useEffect(() => {
         // Function to extract the code from the URL
-        const cardData = getTrelloCardData();
-          const boardData = getTrelloBoardData();
-          console.log(boardData);
-          console.log(cardData);
+        
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
           
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode,Username:cardData.member}
+            let data2 = {ClickupCode:authorizationCode}
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
