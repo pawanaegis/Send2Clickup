@@ -4,8 +4,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import { getAllData } from "../Trello/trello";
-import Cookies from 'js-cookie';
-
 
 const Signup =()=>{
     const [code, setCode] = useState(null);
@@ -16,13 +14,12 @@ const Signup =()=>{
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
-          getAllData();
+          // getAllData();
     
           if (authorizationCode) {
             setCode(authorizationCode);
-            
+            getAllData();
             localStorage.setItem('code', authorizationCode);
-            Cookies.set('token', authorizationCode, { expires: 7, secure: true });
             window.close();
             // navigate('/send2clickup.html');
             if (window.opener) {
@@ -46,19 +43,6 @@ const Signup =()=>{
                 setIsLoading(false);
             }
         }, 500); // Adjust the interval as needed
-        
-        window.addEventListener('message', (event) => {
-          // Check if the message is from a trusted origin (replace 'your_child_origin' with the actual origin)
-          if (event.origin === 'your_child_origin') {
-            const { type, token } = event.data;
-        
-            // Check the message type
-            if (type === 'code') {
-              // Store the token in the local storage of the parent window (iframe)
-              localStorage.setItem('code', token);
-            }
-          }
-        });
         // Clean up the interval when the component is unmounted
         return () => {
             clearInterval(checkWindowClosed);
