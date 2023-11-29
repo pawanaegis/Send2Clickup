@@ -33,13 +33,14 @@ const Signup =()=>{
 
     useEffect(() => {
         // Function to extract the code from the URL
-        const extractCodeFromURL = () => {
-          const urlParams = new URLSearchParams(window.location.search);
-          const authorizationCode = urlParams.get('code');
-          const cardData = getTrelloCardData();
+        const cardData = getTrelloCardData();
           const boardData = getTrelloBoardData();
           console.log(boardData);
           console.log(cardData);
+        const extractCodeFromURL = () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const authorizationCode = urlParams.get('code');
+          
           if (authorizationCode) {
             setCode(authorizationCode);
             let data2 = {ClickupCode:authorizationCode,Username:cardData.member}

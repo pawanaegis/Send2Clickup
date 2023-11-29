@@ -54,14 +54,16 @@ let getTrelloCardData = () =>{
 }
 
 let getTrelloBoardData = () =>{
-  let t = window.TrelloPowerUp.iframe();
-  return t.board("all").then(function (board) {
-            console.log(JSON.stringify(board, null, 2));
-            return board;
-          });
-    
-    
- }
+  let boardData = window.TrelloPowerUp.initialize({
+    "board-buttons": function (t, opts) {
+      return t.board("all").then(function (board) {
+        console.log(JSON.stringify(board, null, 2));
+        return board;
+      });
+    },
+  })
+  return boardData;
+}
 
 let oAuth = (url) =>{
   const t = window.TrelloPowerUp.iframe();
