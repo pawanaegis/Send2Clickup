@@ -63,21 +63,20 @@ const Signup =()=>{
             let data2 = {ClickupCode:authorizationCode}
             console.log(data2);
             window.opener.postMessage(authorizationCode, '*');
-              // navigate('/send2clickup.html');
-              window.close();         
+            window.close();         
             }
         };
     
         // Check if the authorization code is already in local storage
+       if(!code){ 
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
             setCode(storedCode);
-            // navigate('/send2clickup.html');
             registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
         } else {
             extractCodeFromURL();
         }
-
+}
         // Check if the new window is closed periodically
         const checkWindowClosed = setInterval(() => {
             if (!code && isLoading && window.closed) {
@@ -97,9 +96,6 @@ const Signup =()=>{
     const handleLogin = () => {
         // Open the authorization URL in a new window
         const newWindow = window.open(`${config.clickupURL}`, 'blank','width=640,height=480');
-        //let userData = {Username:getTrelloCardData()}
-        // console.log(userData);
-        // registerUser(userData);
         setIsLoading(true);
         if (newWindow) {
           newWindow.focus();
@@ -114,13 +110,9 @@ const Signup =()=>{
     <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
     <Button variant="contained" color="error" disableElevation onClick={()=>{
       // setCode(null)
-      // localStorage.removeItem('code');
-      registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
+      // localStorage.removeItem('code'); 
       var t = window.TrelloPowerUp.iframe();
       t.closePopup();
-      });
-      
-
     }}>Disconnect</Button>
     </>: <Button
       variant="contained"
