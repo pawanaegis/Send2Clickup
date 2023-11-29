@@ -11,7 +11,7 @@ const Signup =()=>{
     const navigate = useNavigate();
     const registerUser = async(data) =>{
       try {
-        const response = await axios.post(
+        const response = await axios.ClickupCodepost(
           `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
           { fields: data },
           {
@@ -37,13 +37,13 @@ const Signup =()=>{
           const authorizationCode = urlParams.get('code');
           
           if (authorizationCode) {
-            setCode(authorizationCode);
             let data2 = {ClickupCode:authorizationCode,trelloMemberId:memberid}
             console.log(data2);
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
               localStorage.removeItem('code');
               navigate('/send2clickup.html');
+              setCode(authorizationCode);
               window.close();
             })
              
@@ -74,7 +74,7 @@ const Signup =()=>{
      
     const handleLogin = () => {
         // Open the authorization URL in a new window
-        const newWindow = window.open(`${config.clickupURL}`, '_blank','width=640,height=480');
+        const newWindow = window.open(`${config.clickupURL}`, '_parent','width=640,height=480');
         //let userData = {Username:getTrelloCardData()}
         // console.log(userData);
         // registerUser(userData);
