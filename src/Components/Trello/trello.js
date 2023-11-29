@@ -1,5 +1,6 @@
 import config from "../../config/config";
 
+
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
         "board-buttons": function (t, opts) {
@@ -47,19 +48,20 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let getTrelloCardData = () =>{
-  let t = window.TrelloPowerUp.iframe();
-  return t.getContext();  
-}
+// let getTrelloCardData = () =>{
+//   let t = window.TrelloPowerUp.iframe();
+//   return t.getContext();  
+// }
 
-let getTrelloBoardData = () =>{
-  let t = window.TrelloPowerUp.iframe();
-    return t.board("all").then(function (board) {
-            console.log(JSON.stringify(board, null, 2));
-            return board;
-          });
+// let getTrelloBoardData = () =>{
+//   let t = window.TrelloPowerUp.iframe();
+//   return t.board("all").then(function (board) {
+//             console.log(JSON.stringify(board, null, 2));
+//             return board;
+//           });
     
- }
+    
+//  }
 
 let oAuth = (url) =>{
   const t = window.TrelloPowerUp.iframe();
@@ -90,4 +92,12 @@ console.log(oauthUrl);
     });
 }
 
-export {TrelloPowerUp, getTrelloCardData, oAuth, getTrelloBoardData};
+// let data = {
+//   name: getTrelloBoardData().members.fullName,
+//   username:getTrelloBoardData().members.username,
+//   boardId:getTrelloBoardData().id,
+//   memberId:getTrelloBoardData().members.id,
+//   card:getTrelloCardData().card,
+// }
+
+export {TrelloPowerUp, oAuth};

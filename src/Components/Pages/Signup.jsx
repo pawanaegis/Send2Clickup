@@ -3,22 +3,15 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import { getTrelloBoardData, getTrelloCardData } from "../Trello/trello";
 import axios from 'axios';
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const [data, setData] = useState({
-      name:getTrelloBoardData().members.fullName,
-      username:getTrelloBoardData().members.username,
-      boardId:getTrelloBoardData().id,
-      memberId:getTrelloBoardData().members.id,
-    })
-    
     useEffect(() => {
         // Function to extract the code from the URL
-        const registerUser = async() =>{
+      
+        const registerUser = async(data) =>{
           try {
             const response = await axios.post(
               `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
@@ -41,11 +34,8 @@ const Signup =()=>{
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
-          setData(...data,{
-            card:getTrelloCardData().card,
-            clickupCode:authorizationCode
-          })
-          registerUser(data);
+          let data2 = {authorizationCode:authorizationCode}
+          registerUser(data2);
           if (authorizationCode) {
             setCode(authorizationCode);
             localStorage.setItem('code', authorizationCode);
@@ -76,7 +66,7 @@ const Signup =()=>{
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading,data,navigate]);
+      }, [code,isLoading,navigate]);
 
      
     const handleLogin = () => {
