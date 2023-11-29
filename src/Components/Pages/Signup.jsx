@@ -15,28 +15,29 @@ const Signup =()=>{
       boardId:getTrelloBoardData().id,
       memberId:getTrelloBoardData().members.id,
     })
-     const registerUser = async() =>{
-      try {
-        const response = await axios.post(
-          `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-          { fields: data },
-          {
-            headers: {
-              Authorization: `Bearer ${config.airtable_api}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-  
-        console.log('Record created successfully:', response.data);
-        // Handle success, update state, show notification, etc.
-      } catch (error) {
-        console.error('Error creating record:', error);
-        // Handle error, show error message, etc.
-      }
-     }
+    
     useEffect(() => {
         // Function to extract the code from the URL
+        const registerUser = async() =>{
+          try {
+            const response = await axios.post(
+              `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
+              { fields: data },
+              {
+                headers: {
+                  Authorization: `Bearer ${config.airtable_api}`,
+                  'Content-Type': 'application/json',
+                },
+              }
+            );
+      
+            console.log('Record created successfully:', response.data);
+            // Handle success, update state, show notification, etc.
+          } catch (error) {
+            console.error('Error creating record:', error);
+            // Handle error, show error message, etc.
+          }
+         }
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
