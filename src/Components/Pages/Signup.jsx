@@ -7,7 +7,6 @@ import axios from 'axios';
 import { getTrelloCardData } from "../Trello/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
-    let [status,setStatus] = useState("Complete Setup");
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     const registerUser = async(data) =>{
@@ -47,6 +46,7 @@ const Signup =()=>{
         console.log('Received data from child window:', receivedData);
         if(typeof receivedData === 'string'){
           setCode(receivedData);
+          localStorage.setItem('code', receivedData);
         } 
         setIsLoading(false);
         // Perform actions based on the received data
@@ -63,7 +63,6 @@ const Signup =()=>{
             let data2 = {ClickupCode:authorizationCode}
             console.log(data2);
             window.opener.postMessage(authorizationCode, '*');
-            localStorage.setItem('code', authorizationCode);
               // navigate('/send2clickup.html');
               window.close();         
             }
@@ -74,6 +73,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             // navigate('/send2clickup.html');
+            registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()});
         } else {
             extractCodeFromURL();
         }
@@ -111,15 +111,17 @@ const Signup =()=>{
         <>
     <h1>Send2Clickup</h1>
     <div>{code?<>
-    <Button variant="contained" color="success" disableElevation disabled={isLoading}>ClickUp Connected</Button>
+    <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
     <Button variant="contained" color="error" disableElevation onClick={()=>{
       // setCode(null)
       // localStorage.removeItem('code');
       registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
-        setStatus("Setup completed! Close Popup")
+      var t = window.TrelloPowerUp.iframe();
+      t.closePopup();
       });
       
-    }}>{status}</Button>
+
+    }}>Disconnect</Button>
     </>: <Button
       variant="contained"
       color={'primary'}
