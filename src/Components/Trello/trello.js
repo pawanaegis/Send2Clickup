@@ -3,9 +3,9 @@ import config from "../../config/config";
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
         "board-buttons": function (t, opts) {
-          return t.board("all").then(function (board) {
-            console.log(JSON.stringify(board, null, 2));
-          });
+          // return t.board("all").then(function (board) {
+          //   console.log(JSON.stringify(board, null, 2));
+          // });
         },
         'show-authorization': function(t, options){
           return t.popup({
@@ -47,13 +47,19 @@ let TrelloPowerUp = () => {
         })
 } 
 
-let getAllData = () =>{
+let getTrelloCardData = () =>{
   let t = window.TrelloPowerUp.iframe();
-  return t.getAll()
-  .then(function (data) {
-    console.log(JSON.stringify(data, null, 2));
-  });
+  return t.getContext();  
 }
+
+let getTrelloBoardData = () =>{
+  let t = window.TrelloPowerUp.iframe();
+    return t.board("all").then(function (board) {
+            console.log(JSON.stringify(board, null, 2));
+            return board;
+          });
+    
+ }
 
 let oAuth = (url) =>{
   const t = window.TrelloPowerUp.iframe();
@@ -84,4 +90,4 @@ console.log(oauthUrl);
     });
 }
 
-export {TrelloPowerUp, getAllData, oAuth};
+export {TrelloPowerUp, getTrelloCardData, oAuth, getTrelloBoardData};

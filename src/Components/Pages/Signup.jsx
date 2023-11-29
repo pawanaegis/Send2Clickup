@@ -3,21 +3,50 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
-import { getAllData } from "../Trello/trello";
-
+import { getTrelloBoardData, getTrelloCardData } from "../Trello/trello";
+import axios from 'axios';
 const Signup =()=>{
     const [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [data, setData] = useState({
+      name:getTrelloBoardData().members.fullName,
+      username:getTrelloBoardData().members.username,
+      boardId:getTrelloBoardData().id,
+      memberId:getTrelloBoardData().members.id,
+    })
+     const registerUser = async() =>{
+      try {
+        const response = await axios.post(
+          `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
+          { fields: data },
+          {
+            headers: {
+              Authorization: `Bearer ${config.airtable_api}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+  
+        console.log('Record created successfully:', response.data);
+        // Handle success, update state, show notification, etc.
+      } catch (error) {
+        console.error('Error creating record:', error);
+        // Handle error, show error message, etc.
+      }
+     }
     useEffect(() => {
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
           const urlParams = new URLSearchParams(window.location.search);
           const authorizationCode = urlParams.get('code');
-          // getAllData();
+          setData(...data,{
+            card:getTrelloCardData().card,
+            clickupCode:authorizationCode
+          })
+          registerUser(data);
           if (authorizationCode) {
             setCode(authorizationCode);
-            getAllData();
             localStorage.setItem('code', authorizationCode);
             window.close();
             // navigate('/send2clickup.html');
@@ -46,7 +75,7 @@ const Signup =()=>{
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading,navigate]);
+      }, [code,isLoading,data,navigate]);
 
      
     const handleLogin = () => {
