@@ -38,7 +38,7 @@ const Signup =()=>{
           
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode,Username:getTrelloCardData()}
+            let data2 = {ClickupCode:authorizationCode,trelloMemberId:getTrelloCardData()}
             
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
