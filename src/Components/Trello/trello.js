@@ -30,7 +30,7 @@ let TrelloPowerUp = () => {
             }]
           
           },
-          'card-details-badge': function(t, options) {
+          'card-detail-badges': function(t, options) {
             return [
               {
                 icon: config.appLogo,
