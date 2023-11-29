@@ -29,7 +29,7 @@ const Signup =()=>{
         // Handle error, show error message, etc.
       }
      }
-
+     let memberid = getTrelloCardData();
     useEffect(() => {
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
@@ -38,8 +38,8 @@ const Signup =()=>{
           
           if (authorizationCode) {
             setCode(authorizationCode);
-            let data2 = {ClickupCode:authorizationCode,trelloMemberId:getTrelloCardData()}
-            
+            let data2 = {ClickupCode:authorizationCode,trelloMemberId:memberid}
+            console.log(data2);
             localStorage.setItem('code', authorizationCode);
             registerUser(data2).then(()=>{
               localStorage.removeItem('code');
@@ -69,7 +69,7 @@ const Signup =()=>{
         return () => {
             clearInterval(checkWindowClosed);
         };
-      }, [code,isLoading,navigate]);
+      }, [code,isLoading,memberid,navigate]);
 
      
     const handleLogin = () => {
