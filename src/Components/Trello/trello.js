@@ -1,6 +1,6 @@
 import config from "../../config/config";
 
-
+let memberId;
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
         "board-buttons": function (t, opts) {
@@ -50,7 +50,11 @@ let TrelloPowerUp = () => {
 
 let getTrelloCardData = () =>{
   let t = window.TrelloPowerUp.iframe();
-  return t.getContext();  
+  
+  let context =  t.getContext();  
+  memberId = context.memberId;
+  console.log(memberId);
+  return memberId;
 }
 
 let getTrelloBoardData = () =>{
@@ -94,12 +98,4 @@ console.log(oauthUrl);
     });
 }
 
-// let data = {
-//   name: getTrelloBoardData().members.fullName,
-//   username:getTrelloBoardData().members.username,
-//   boardId:getTrelloBoardData().id,
-//   memberId:getTrelloBoardData().members.id,
-//   card:getTrelloCardData().card,
-// }
-
-export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData};
+export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData, memberId};
