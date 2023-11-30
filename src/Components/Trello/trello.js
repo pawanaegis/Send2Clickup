@@ -76,19 +76,36 @@ var btnCallback = function (t, opts) {
       callback: async function (t) {
         console.log(t.getContext());
         var memberData = await t.member("all");
-        t.loadSecret('code')
+        var code = t.loadSecret('code')
         .then(function (secret) {
           console.log("clickup code is",secret);
         });
+        var token = t.loadSecret('token').then(function(secret){
+          console.log("clickup token is",secret);
+          return secret;
+        })
+        var cardData = t.card("all").then(function (card) {
+          console.log(JSON.stringify(card, null, 2));
+          return card;
+        });
+
         var context = t.getContext();
 
                  var data = {
                   fields:{
                    trelloCardId: context.card,
-                   trelloMemberId: context.board,
-                   trelloBoardId: context.member,
+                   trelloMemberId: context.member,
+                   trelloBoardId: context.board,
                    trelloUsername: memberData.username,
+                   clickupCode: code,
+                   clickupToken: token,
+                   cardDescription: cardData.desc,
+                   cardName: cardData.name,
+                   membersAssigned: cardData.members,
+                   cardStartDate: cardData.start,
+                   cardDueDate: cardData.due,
                   }
+        
                  }    
                  console.log(data);
                  var myHeaders = new Headers();
