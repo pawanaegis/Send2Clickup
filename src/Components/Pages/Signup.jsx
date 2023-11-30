@@ -26,7 +26,7 @@ const Signup =()=>{
         const response = await axios.request(req);
         console.log(req);
         console.log(response.data.records);
-        if (response.data.records.length > 0) {
+        if (recordId === undefined) {
           console.log('Value already exists. Do nothing.');
         }else{
           const response = await axios.post(
