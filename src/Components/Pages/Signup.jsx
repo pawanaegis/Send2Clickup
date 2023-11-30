@@ -11,25 +11,37 @@ const Signup =()=>{
     const navigate = useNavigate();
     const registerUser = async(data) =>{
       try {
-        const response = await axios.post(
-          `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-          { fields: data },
-          {
-            headers: {
-              Authorization: `Bearer ${config.airtable_api}`,
-              'Content-Type': 'application/json',
-            },
+        let req = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: `https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1?trelloMemberId=${data.trelloMemberId}`,
+          headers: { 
+            'Authorization': `Bearer ${config.airtable_api}`, 
           }
-        );
-  
-        console.log('Record created successfully:', response.data);
-        // Handle success, update state, show notification, etc.
+        };
+        const response = await axios.request(req);
+        
+        if (response.data.records.length > 0) {
+          console.log('Value already exists. Do nothing.');
+        }else{
+          const response = await axios.post(
+            `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
+            { fields: data },
+            {
+              headers: {
+                Authorization: `Bearer ${config.airtable_api}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          console.log('Record created successfully:', response.data);
+        
+        }        // Handle success, update state, show notification, etc.
       } catch (error) {
         console.error('Error creating record:', error);
         // Handle error, show error message, etc.
       }
      }
-
     
     useEffect(() => {
       const handleMessage = (event) => {
@@ -110,12 +122,6 @@ const Signup =()=>{
     <h1>Send2Clickup</h1>
     <div>{code?<>
     <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
-    <Button variant="contained" color="error" disableElevation onClick={()=>{
-      // setCode(null)
-      // localStorage.removeItem('code'); 
-      var t = window.TrelloPowerUp.iframe();
-      t.closePopup();
-    }}></Button>
     </>: <Button
       variant="contained"
       color={'primary'}
