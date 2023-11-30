@@ -99,10 +99,10 @@ console.log(oauthUrl);
 
 var btnCallback = function (t, opts) {
   return t.popup({
-    title: 'Get Data',
+    title: 'Send',
     items: [{
-      text: 'Get Context',
-      callback: function (t) {
+      text: 'Add to Clickup',
+      callback: async function (t) {
         console.log(t.getContext());
         var context = t.getContext();
                  var data = {
@@ -127,6 +127,7 @@ var btnCallback = function (t, opts) {
    fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
   .then(response => response.text())
   .then(result =>{ 
+    t.closePopup()
     return t.popup({
        title: 'Status',
        text: result,
