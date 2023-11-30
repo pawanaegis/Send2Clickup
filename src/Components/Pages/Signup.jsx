@@ -12,7 +12,7 @@ const Signup =()=>{
     const registerUser = async(data) =>{
       try {
         let t = window.TrelloPowerUp.iframe();
-        const recordId=t.get("board", "shared", "recordId").then(function(recordId){
+        const recordId=await t.get("board", "shared", "recordId").then(function(recordId){
           return recordId;
         })
         let req = {
