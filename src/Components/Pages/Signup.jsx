@@ -62,8 +62,11 @@ const Signup =()=>{
         const receivedData = event.data;
         console.log('Received data from child window:', receivedData);
         if(typeof receivedData === 'string'){
+          var t = window.TrelloPowerUp.iframe();
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
+          return t.storeSecret('code', receivedData);
+         
         } 
         setIsLoading(false);
     };
@@ -84,10 +87,9 @@ const Signup =()=>{
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
             setCode(storedCode);
+            var t = window.TrelloPowerUp.iframe();
             registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
-              var t = window.TrelloPowerUp.iframe();
-              t.storeSecret('code', code);
-              t.closePopup();
+            t.closePopup();
             });
         } else {
             extractCodeFromURL();
