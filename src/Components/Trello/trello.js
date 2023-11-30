@@ -1,6 +1,10 @@
 import config from "../../config/config";
 
-let memberId;
+let myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer pat8dFR91yJvAxN6v.b6879b08bd9556bcb2c7411e4a37208cc4336f8aef771db1e2a2b7ee3c1b0360");
+
+
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
         "board-buttons": function (t, opts) {
@@ -37,10 +41,27 @@ let TrelloPowerUp = () => {
                 icon: config.appLogo,
                 text:'Add2Clickup',
                 callback: function (t) {
-                  return t.popup({
-                    title: "Send2Clickup",
-                    url: "./Signup.html",
-                  });
+                 let context = t.getContext();
+                 const data = JSON.stringify({
+                   cardId: context.card,
+                   boardId: context.board,
+                   member: context.member
+                 })    
+                 let requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: data,
+                  redirect: 'follow'
+                };
+   fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
+  .then(response => response.text())
+  .then(result =>{ 
+    return t.popup({
+       title: 'Status',
+       text: result,
+    })
+    })
+  .catch(error => console.log('error', error));
                 },
               },
             ];
@@ -104,4 +125,4 @@ console.log(oauthUrl);
     });
 }
 
-export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData, memberId};
+export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData};
