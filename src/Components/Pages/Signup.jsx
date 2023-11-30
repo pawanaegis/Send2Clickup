@@ -11,24 +11,6 @@ const Signup =()=>{
     const navigate = useNavigate();
     const registerUser = async(data) =>{
       try {
-        let t = window.TrelloPowerUp.iframe();
-        const recordId=await t.get("board", "shared", "recordId").then(function(recordId){
-          return recordId;
-        })
-        let req = {
-          method: 'get',
-          maxBodyLength: Infinity,
-          url: `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}/${recordId}`,
-          headers: { 
-            'Authorization': `Bearer ${config.airtable_api}`, 
-          }
-        };
-        const response = await axios.request(req);
-        console.log(req);
-        console.log(response.data.records);
-        if (recordId === undefined) {
-          console.log('Value already exists. Do nothing.');
-        }else{
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
             { fields: data },
@@ -40,15 +22,15 @@ const Signup =()=>{
             }
           );
           console.log('Record created successfully:', response.data);
-          t.set("board", "shared", "recordId", response.data.id)
-        }        // Handle success, update state, show notification, etc.
       } catch (error) {
         console.error('Error creating record:', error);
         // Handle error, show error message, etc.
       }
      }
-    
     useEffect(() => {
+      if(localStorage.getItem('code')){
+        navigate('/Send2Clickup.html')
+      }
       const handleMessage = (event) => {
         // Ensure the message is from a trusted source (security check)
         // For production, you might want to validate the origin of the message
@@ -65,7 +47,7 @@ const Signup =()=>{
           var t = window.TrelloPowerUp.iframe();
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
-          return t.storeSecret('code', receivedData);
+          t.storeSecret('code', receivedData);
          
         } 
         setIsLoading(false);
