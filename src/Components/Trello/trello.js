@@ -80,7 +80,7 @@ var btnCallback = function (t, opts) {
         .then(function (secret) {
           console.log(typeof secret);
           console.log("clickup code is",secret);
-          return code.toString();
+          return code;
         });
         var token = await t.loadSecret('token').then(function(secret){
           console.log("clickup token is",secret);
