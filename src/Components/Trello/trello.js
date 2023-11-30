@@ -76,7 +76,9 @@ var btnCallback = function (t, opts) {
       callback: async function (t) {
         console.log(t.getContext());
         var memberData =  t.member("all").then(function (member) {
-          console.log(JSON.stringify(member, null, 2))});
+          console.log(JSON.stringify(member, null, 2))
+          return member;
+        });
         var context = t.getContext();
                  var data = {
                   fields:{
