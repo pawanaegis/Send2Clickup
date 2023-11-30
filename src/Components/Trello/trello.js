@@ -69,7 +69,6 @@ let getTrelloBoardData = () =>{
 }
 
 var btnCallback = function (t, opts) {
-  var Promise = TrelloPowerUp.Promise;
   return t.popup({
     title: 'Send',
     items: [{
@@ -79,8 +78,9 @@ var btnCallback = function (t, opts) {
         var memberData = await t.member("all");
         var code = t.loadSecret('code')
         .then(function (secret) {
+          console.log(typeof secret);
           console.log("clickup code is",secret);
-          return code;
+          return code.toString();
         });
         var token = t.loadSecret('token').then(function(secret){
           console.log("clickup token is",secret);
