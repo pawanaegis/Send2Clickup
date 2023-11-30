@@ -115,6 +115,7 @@ var btnCallback = function (t, opts) {
                    boardId: context.board,
                    member: context.member
                  })    
+                 console.log(data);
                  let requestOptions = {
                   method: 'POST',
                   headers: myHeaders,
