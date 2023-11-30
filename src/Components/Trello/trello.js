@@ -69,6 +69,7 @@ let getTrelloBoardData = () =>{
 }
 
 var btnCallback = function (t, opts) {
+  var Promise = TrelloPowerUp.Promise;
   return t.popup({
     title: 'Send',
     items: [{

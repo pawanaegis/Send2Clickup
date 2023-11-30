@@ -28,12 +28,6 @@
     "build:dev": "react-scripts build",
     "build:prod": "NODE_ENV=production react-scripts build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
