@@ -109,6 +109,28 @@ var btnCallback = function (t, opts) {
       text: 'Get Context',
       callback: function (t) {
         console.log(t.getContext());
+        let context = t.getContext();
+                 const data = JSON.stringify({
+                   cardId: context.card,
+                   boardId: context.board,
+                   member: context.member
+                 })    
+                 let requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: data,
+                  redirect: 'follow'
+                };
+   fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
+  .then(response => response.text())
+  .then(result =>{ 
+    return t.popup({
+       title: 'Status',
+       text: result,
+       height:300
+    })
+    })
+  .catch(error => console.log('error', error));
       }
     }]
   });
