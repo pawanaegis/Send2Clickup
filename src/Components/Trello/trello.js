@@ -1,10 +1,5 @@
 import config from "../../config/config";
 
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("Authorization", "Bearer pat8dFR91yJvAxN6v.b6879b08bd9556bcb2c7411e4a37208cc4336f8aef771db1e2a2b7ee3c1b0360");
-
-
 let TrelloPowerUp = () => {
     window.TrelloPowerUp.initialize({
         "board-buttons": function (t, opts) {
@@ -116,6 +111,10 @@ var btnCallback = function (t, opts) {
                    trelloBoardId: context.member
                  }    
                  console.log(data);
+                 let myHeaders = new Headers();
+                  myHeaders.append("Content-Type", "application/json");
+                  myHeaders.append("Authorization", "Bearer pat8dFR91yJvAxN6v.b6879b08bd9556bcb2c7411e4a37208cc4336f8aef771db1e2a2b7ee3c1b0360");
+
                  let requestOptions = {
                   method: 'POST',
                   headers: myHeaders,
