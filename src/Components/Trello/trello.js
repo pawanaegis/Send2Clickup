@@ -106,9 +106,11 @@ var btnCallback = function (t, opts) {
         console.log(t.getContext());
         var context = t.getContext();
                  var data = {
+                  fields:{
                    trelloCardId: context.card,
                    trelloMemberId: context.board,
                    trelloBoardId: context.member
+                  }
                  }    
                  console.log(data);
                  var myHeaders = new Headers();
