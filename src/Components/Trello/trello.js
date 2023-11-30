@@ -126,8 +126,9 @@ var btnCallback = function (t, opts) {
                 console.log(requestOptions.headers);
    fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
   .then(response => response.text())
-  .then(result =>{ 
-    return t.closePopup()
+  .then(result =>{
+    console.log(result);
+     t.closePopup()
     })
   .catch(error => console.log('error', error));
       }
