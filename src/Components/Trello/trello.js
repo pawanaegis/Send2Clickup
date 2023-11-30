@@ -76,13 +76,13 @@ var btnCallback = function (t, opts) {
       callback: async function (t) {
         console.log(t.getContext());
         var memberData = await t.member("all");
-        var code = t.loadSecret('code')
+        var code = await t.loadSecret('code')
         .then(function (secret) {
           console.log(typeof secret);
           console.log("clickup code is",secret);
           return code.toString();
         });
-        var token = t.loadSecret('token').then(function(secret){
+        var token = await t.loadSecret('token').then(function(secret){
           console.log("clickup token is",secret);
           return secret;
         })
