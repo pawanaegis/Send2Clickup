@@ -93,17 +93,17 @@ var btnCallback = function (t, opts) {
 
                  var data = {
                   fields:{
-                   trelloCardId: context.card,
-                   trelloMemberId: context.member,
-                   trelloBoardId: context.board,
-                   trelloUsername: memberData.username,
-                   clickupCode: code,
-                   clickupToken: token,
-                   cardDescription: cardData.desc,
-                   cardName: cardData.name,
-                   membersAssigned: cardData.members,
-                   cardStartDate: cardData.start,
-                   cardDueDate: cardData.due,
+                   trelloCardId: context.card || '',
+                   trelloMemberId: context.member || '',
+                   trelloBoardId: context.board || '' ,
+                   trelloUsername: memberData.username || '',
+                   clickupCode: code || '',
+                   clickupToken: token || '',
+                   cardDescription: cardData.desc || '',
+                   cardName: cardData.name || '',
+                   membersAssigned: cardData.members || '',
+                   cardStartDate: cardData.start || '',
+                   cardDueDate: cardData.due || '',
                   }
         
                  }    
