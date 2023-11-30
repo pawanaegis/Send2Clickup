@@ -110,18 +110,19 @@ var btnCallback = function (t, opts) {
       callback: function (t) {
         console.log(t.getContext());
         let context = t.getContext();
-                 const data = JSON.stringify({
-                   cardId: context.card,
-                   boardId: context.board,
-                   member: context.member
-                 })    
+                 const data = {
+                   trelloCardId: context.card,
+                   trelloMemberId: context.board,
+                   trelloBoardId: context.member
+                 }    
                  console.log(data);
                  let requestOptions = {
                   method: 'POST',
                   headers: myHeaders,
-                  body: data,
+                  body: JSON.stringify(data),
                   redirect: 'follow'
                 };
+                console.log(requestOptions);
    fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
   .then(response => response.text())
   .then(result =>{ 
