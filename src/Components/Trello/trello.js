@@ -28,7 +28,7 @@ let TrelloPowerUp = () => {
               callback: function(t) {
                 return t.popup({
                   title: 'Send2Clickup',
-                  url: './signup.html',
+                  url: t.signUrl('./signup.html'),
                   height: 300
                 })
               }
@@ -40,32 +40,9 @@ let TrelloPowerUp = () => {
               {
                 icon: config.appLogo,
                 text:'Add2Clickup',
-                callback: function (t) {
-                 let context = t.getContext();
-                 const data = JSON.stringify({
-                   cardId: context.card,
-                   boardId: context.board,
-                   member: context.member
-                 })    
-                 let requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  body: data,
-                  redirect: 'follow'
-                };
-   fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
-  .then(response => response.text())
-  .then(result =>{ 
-    return t.popup({
-       title: 'Status',
-       text: result,
-    })
-    })
-  .catch(error => console.log('error', error));
-                },
-              },
-            ];
-          }
+                callback: btnCallback
+                }]
+              }
         })
 } 
 
@@ -124,5 +101,17 @@ console.log(oauthUrl);
       return t.closePopup();
     });
 }
+
+var btnCallback = function (t, opts) {
+  return t.popup({
+    title: 'Get Data',
+    items: [{
+      text: 'Get Context',
+      callback: function (t) {
+        console.log(t.getContext());
+      }
+    }]
+  });
+};
 
 export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData};
