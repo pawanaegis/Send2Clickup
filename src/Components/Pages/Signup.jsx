@@ -11,16 +11,21 @@ const Signup =()=>{
     const navigate = useNavigate();
     const registerUser = async(data) =>{
       try {
+        let t = window.TrelloPowerUp.iframe();
+        const recordId=t.get("board", "shared", "recordId").then(function(recordId){
+          return recordId;
+        })
         let req = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: `https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1?trelloMemberId=${data.trelloMemberId}`,
+          url: `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}/${recordId}`,
           headers: { 
             'Authorization': `Bearer ${config.airtable_api}`, 
           }
         };
         const response = await axios.request(req);
-        
+        console.log(req);
+        console.log(response.data.records);
         if (response.data.records.length > 0) {
           console.log('Value already exists. Do nothing.');
         }else{
@@ -35,7 +40,7 @@ const Signup =()=>{
             }
           );
           console.log('Record created successfully:', response.data);
-        
+          t.set("board", "shared", "recordId", response.data.id)
         }        // Handle success, update state, show notification, etc.
       } catch (error) {
         console.error('Error creating record:', error);
@@ -61,10 +66,6 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
         } 
         setIsLoading(false);
-        // Perform actions based on the received data
-        // For example, update the state with the received data
-        // setCode(receivedData);
-        // ... other actions
     };
         // Function to extract the code from the URL
         const extractCodeFromURL = () => {
@@ -115,13 +116,12 @@ const Signup =()=>{
           newWindow.focus();
         }
       };
-     
 
     return(
         <>
     <h1>Send2Clickup</h1>
     <div>{code?<>
-    <Button variant="contained" color="success" disableElevation>Connected{code}</Button>
+    <Button variant="contained" color="success" disableElevation>Connected</Button>
     </>: <Button
       variant="contained"
       color={'primary'}
