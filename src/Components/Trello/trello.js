@@ -127,12 +127,7 @@ var btnCallback = function (t, opts) {
    fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
   .then(response => response.text())
   .then(result =>{ 
-    t.closePopup()
-    return t.popup({
-       title: 'Status',
-       text: result,
-       height:300
-    })
+    return t.closePopup()
     })
   .catch(error => console.log('error', error));
       }
