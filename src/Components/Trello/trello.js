@@ -75,10 +75,7 @@ var btnCallback = function (t, opts) {
       text: 'Add to Clickup',
       callback: async function (t) {
         console.log(t.getContext());
-        var memberData =  t.member("all").then(function (member) {
-          console.log(JSON.stringify(member, null, 2))
-          return member;
-        });
+        var memberData = await t.member("all");
         var context = t.getContext();
                  var data = {
                   fields:{
