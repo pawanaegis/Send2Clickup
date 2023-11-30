@@ -68,35 +68,6 @@ let getTrelloBoardData = () =>{
   return boardData;
 }
 
-let oAuth = (url) =>{
-  const t = window.TrelloPowerUp.iframe();
-
-// When constructing the URL, remember that you'll need to encode your
-// APPNAME and RETURNURL
-// You can do that with the encodeURIComponent(string) function
-// encodeURIComponent('Hello World') -> "Hello%20World"
-var authorizeOpts = {
-  height: 680,
-  width: 580,
-};
-const oauthUrl =encodeURI(url)
-console.log(oauthUrl);
-  t.authorize(oauthUrl, authorizeOpts)
-    .then(function (token) {
-      return t
-        .set("organization", "private", "token", token)
-        .catch(t.NotHandled, function () {
-          // fall back to storing at board level
-          return t.set("board", "private", "token", token);
-        });
-    })
-    .then(function () {
-      // now that the token is stored, we can close this popup
-      // you might alternatively choose to open a new popup
-      return t.closePopup();
-    });
-}
-
 var btnCallback = function (t, opts) {
   return t.popup({
     title: 'Send',
@@ -104,12 +75,15 @@ var btnCallback = function (t, opts) {
       text: 'Add to Clickup',
       callback: async function (t) {
         console.log(t.getContext());
+        var memberData =  t.member("all").then(function (member) {
+          console.log(JSON.stringify(member, null, 2))});
         var context = t.getContext();
                  var data = {
                   fields:{
                    trelloCardId: context.card,
                    trelloMemberId: context.board,
-                   trelloBoardId: context.member
+                   trelloBoardId: context.member,
+                   trelloUsername: memberData.username,
                   }
                  }    
                  console.log(data);
@@ -128,7 +102,6 @@ var btnCallback = function (t, opts) {
   .then(response => response.text())
   .then(result =>{
     console.log(result);
-     t.closePopup()
     })
   .catch(error => console.log('error', error));
       }
@@ -136,4 +109,4 @@ var btnCallback = function (t, opts) {
   });
 };
 
-export {TrelloPowerUp, oAuth, getTrelloBoardData, getTrelloCardData};
+export {TrelloPowerUp, getTrelloBoardData, getTrelloCardData};
