@@ -121,7 +121,7 @@ var btnCallback = function (t, opts) {
                   body: JSON.stringify(data),
                   redirect: 'follow'
                 };
-                console.log(requestOptions.myHeaders);
+                console.log(requestOptions.headers);
    fetch("https://api.airtable.com/v0/appwtI4RvxKzIOeHB/Table 1", requestOptions)
   .then(response => response.text())
   .then(result =>{ 
