@@ -79,6 +79,7 @@ var btnCallback = function (t, opts) {
         var code = t.loadSecret('code')
         .then(function (secret) {
           console.log("clickup code is",secret);
+          return code;
         });
         var token = t.loadSecret('token').then(function(secret){
           console.log("clickup token is",secret);
