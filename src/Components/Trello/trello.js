@@ -104,14 +104,14 @@ var btnCallback = function (t, opts) {
       text: 'Get Context',
       callback: function (t) {
         console.log(t.getContext());
-        let context = t.getContext();
-                 const data = {
+        var context = t.getContext();
+                 var data = {
                    trelloCardId: context.card,
                    trelloMemberId: context.board,
                    trelloBoardId: context.member
                  }    
                  console.log(data);
-                 let myHeaders = new Headers();
+                 var myHeaders = new Headers();
                   myHeaders.append("Content-Type", "application/json");
                   myHeaders.append("Authorization", "Bearer pat8dFR91yJvAxN6v.b6879b08bd9556bcb2c7411e4a37208cc4336f8aef771db1e2a2b7ee3c1b0360");
 
