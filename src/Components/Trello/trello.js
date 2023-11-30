@@ -76,7 +76,12 @@ var btnCallback = function (t, opts) {
       callback: async function (t) {
         console.log(t.getContext());
         var memberData = await t.member("all");
+        t.loadSecret('code')
+        .then(function (secret) {
+          console.log("clickup code is",secret);
+        });
         var context = t.getContext();
+
                  var data = {
                   fields:{
                    trelloCardId: context.card,

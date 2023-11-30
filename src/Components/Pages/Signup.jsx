@@ -86,6 +86,7 @@ const Signup =()=>{
             setCode(storedCode);
             registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
               var t = window.TrelloPowerUp.iframe();
+              t.storeSecret('code', code);
               t.closePopup();
             });
         } else {
