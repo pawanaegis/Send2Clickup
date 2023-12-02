@@ -78,34 +78,34 @@ var btnCallback = function (t, opts) {
         var memberData = await t.member("all");
         var code = await t.loadSecret('code')
         .then(function (secret) {
+          console.log(typeof secret);
+          console.log("clickup code is",secret);
           return code;
         });
-        console.log(memberData);
-        console.log(code);
         var token = await t.loadSecret('token').then(function(secret){
+          console.log("clickup token is",secret);
           return secret;
         })
-        console.log(token);
         var cardData = await t.card("all").then(function (card) {
+          console.log(JSON.stringify(card, null, 2));
           return card;
         });
-        console.log(cardData);
+
         var context = t.getContext();
-        console.log(context);
 
                  var data = {
                   fields:{
-                   trelloCardId:"a",
-                   trelloMemberId:"b",
-                   trelloBoardId:"c",
-                   trelloUsername:"",
-                   clickupCode:"",
-                   clickupToken:"",
-                   cardDescription:"",
-                   cardName: "",
-                   membersAssigned: "",
-                   cardStartDate: "",
-                   cardDueDate: "",
+                   trelloCardId: context.card || "",
+                   trelloMemberId: context.member || "",
+                   trelloBoardId: context.board || "" ,
+                   trelloUsername: memberData.username || "",
+                   clickupCode: code || "",
+                   clickupToken: token || "",
+                   cardDescription: cardData.desc || "",
+                   cardName: cardData.name || "",
+                   membersAssigned: cardData.members || "",
+                   cardStartDate: cardData.start || "",
+                   cardDueDate: cardData.due || "",
                   }
         
                  }    
