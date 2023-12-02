@@ -86,7 +86,7 @@ var btnCallback = function (t, opts) {
           console.log("clickup token is",secret);
           return secret;
         })
-        var cardData = t.card("all").then(function (card) {
+        var cardData = await t.card("all").then(function (card) {
           console.log(JSON.stringify(card, null, 2));
           return card;
         });
