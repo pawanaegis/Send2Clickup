@@ -117,7 +117,7 @@ var btnCallback = function (t, opts) {
                  let requestOptions = {
                   method: 'POST',
                   headers: myHeaders,
-                  body: JSON.stringify(data),
+                  body: data,
                   redirect: 'follow'
                 };
                 console.log(requestOptions.headers);
