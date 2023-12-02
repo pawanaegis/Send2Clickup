@@ -114,13 +114,13 @@ console.log(result);
 .catch(error => console.log('error', error));
 }
 
-let dataForClickup= () => {
+let dataForClickup= async() => {
   var t = window.TrelloPowerUp.iframe();
-  let memberData =  t.member("all")
+  let memberData = await t.member("all")
   console.log(memberData);
-  let cardData =   t.card("all");
+  let cardData = await t.card("all");
   console.log(cardData);
-  let context =  t.getContext();
+  let context = await t.getContext();
   console.log(context);
 
            let sendData = {

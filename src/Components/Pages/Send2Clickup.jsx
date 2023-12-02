@@ -11,7 +11,7 @@ export default function Send2Clickup() {
   let [status, setStatus] = useState(false);
   let cardData = useRef(dataForClickup());
 
-  console.log(cardData.current.fields);
+  console.log(cardData.current);
   let sendCardToClickup= async() => {
     setIsLoading(true);
     try {
