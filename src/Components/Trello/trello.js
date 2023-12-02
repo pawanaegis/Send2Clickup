@@ -115,6 +115,8 @@ var btnCallback = function (t, opts) {
   .then(response => response.text())
   .then(result =>{
     console.log(result);
+    }).then(function() {
+      t.closePopup();
     })
   .catch(error => console.log('error', error));
       }
