@@ -3,17 +3,19 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import config from "../../config/config";
+import { dataForClickup } from '../Trello/trello';
 
 
 export default function Send2Clickup() {
   let [isLoading, setIsLoading] = useState(false);
-
-  let sendCardToClickup= async(data) => {
+  let [status, setStatus] = useState(false);
+  let cardData = dataForClickup();
+  let sendCardToClickup= async() => {
     setIsLoading(true);
     try {
       const response = await axios.post(
         `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-        { fields: data },
+        { fields: cardData },
         {
           headers: {
             Authorization: `Bearer ${config.airtable_api}`,
@@ -22,6 +24,7 @@ export default function Send2Clickup() {
         }
       );
       setIsLoading(false);
+      setStatus(true);
       console.log('Record created successfully:', response.data);
   } catch (error) {
     console.error('Error creating record:', error);
@@ -32,10 +35,9 @@ export default function Send2Clickup() {
   return (
    
     <>
-    <h3>Send2Clickup Card Preview</h3>
      <div>
         <h1>Send Card to Clickup</h1>
-        <Button
+        {status?<Button Button variant="contained" color="success" disableElevation>Done</Button>:<Button
       variant="contained"
       color={'primary'}
       disableElevation
@@ -56,9 +58,8 @@ export default function Send2Clickup() {
         }
     }}
     >
-      {isLoading ? 'Connecting...' : 'Connect ClickUp'}
-    </Button>
-        <p style={{background:"green"}}>Clickup Connect.</p>
+      {isLoading ? 'Sending...' : 'Send Card'}
+    </Button>}
      </div>
     </>
   )

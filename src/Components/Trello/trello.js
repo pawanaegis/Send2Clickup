@@ -114,7 +114,7 @@ console.log(result);
 .catch(error => console.log('error', error));
 }
 
-let data= async (t) => {
+let dataForClickup= async (t) => {
   var memberData = await t.member("all");
   console.log(memberData);
   var code = await t.loadSecret('code')
@@ -132,7 +132,17 @@ let data= async (t) => {
     return card;
   });
 
-  var context = await t.getContext();
+  var context = await t.getContext().then((data)=>{
+    if (context) {
+      console.log(context);
+      return context || "data";
+    } else {
+      console.error("Context is undefined");
+      // Handle the case when context is undefined
+      // You might want to return a default value or throw an error
+      return "defaultData";
+    }
+  });
 
            var data = {
             fields:{
@@ -153,4 +163,4 @@ let data= async (t) => {
            console.log(data);
            return data;
 }
-export {TrelloPowerUp, getTrelloCardData, sendCardToClickup, data};
+export {TrelloPowerUp, getTrelloCardData, sendCardToClickup, dataForClickup};
