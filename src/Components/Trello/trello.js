@@ -122,4 +122,4 @@ var btnCallback = function (t, opts) {
   });
 };
 
-export {TrelloPowerUp, getTrelloBoardData, getTrelloCardData};
+export {TrelloPowerUp, getTrelloCardData};
