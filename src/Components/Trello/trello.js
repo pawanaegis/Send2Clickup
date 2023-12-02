@@ -31,7 +31,7 @@ let TrelloPowerUp = () => {
           'card-detail-badges': function(t, options) {
             return [
               {
-                text:'Send',
+                text:'Send Card',
                 callback: function(t) {
                   return t.popup({
                     title: 'Send Card to Clickup',
@@ -133,9 +133,9 @@ let dataForClickup= async (t) => {
   });
 
   var context = await t.getContext().then((data)=>{
-    if (context) {
-      console.log(context);
-      return context || "data";
+    if (data) {
+      console.log(data);
+      return data || "data";
     } else {
       console.error("Context is undefined");
       // Handle the case when context is undefined
@@ -144,7 +144,7 @@ let dataForClickup= async (t) => {
     }
   });
 
-           var data = {
+           let sendData = {
             fields:{
              trelloCardId: context.card || "",
              trelloMemberId: context.member || "",
@@ -160,7 +160,7 @@ let dataForClickup= async (t) => {
             }
   
            }    
-           console.log(data);
-           return data;
+           console.log(sendData);
+           return sendData;
 }
 export {TrelloPowerUp, getTrelloCardData, sendCardToClickup, dataForClickup};
