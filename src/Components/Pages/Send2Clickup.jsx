@@ -7,7 +7,6 @@ import { dataForClickup } from '../Trello/trello';
 
 
 export default function Send2Clickup() {
-  let t = window.TrelloPowerUp.iframe();
   let [isLoading, setIsLoading] = useState(false);
   let [status, setStatus] = useState(false);
 
@@ -28,7 +27,6 @@ export default function Send2Clickup() {
       );
       setIsLoading(false);
       setStatus(true);
-      t.closePopup();
       console.log('Record created successfully:', response.data);
   } catch (error) {
     console.error('Error creating record:', error);

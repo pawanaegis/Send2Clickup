@@ -4,16 +4,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getTrelloCardData } from "../Trello/trello";
+import { getMemberData } from "../Trello/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
     const registerUser = async(data) =>{
       try {
+          let memberData = await getMemberData();
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-            { fields: data },
+            { fields: data, ...memberData },
             {
               headers: {
                 Authorization: `Bearer ${config.airtable_api}`,
@@ -32,10 +33,6 @@ const Signup =()=>{
         navigate('/Send2Clickup.html')
       }
       const handleMessage = (event) => {
-        // Ensure the message is from a trusted source (security check)
-        // For production, you might want to validate the origin of the message
-        // and check the message structure.
-        // For simplicity, this example uses '*'.
         if (event.origin !== window.location.origin) {
             return;
         }
@@ -70,7 +67,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             var t = window.TrelloPowerUp.iframe();
-            registerUser({ClickupCode:code, trelloMemberId:getTrelloCardData()}).then(()=>{
+            registerUser({ClickupCode:code}).then(()=>{
             t.closePopup();
             });
         } else {
