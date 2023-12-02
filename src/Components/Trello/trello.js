@@ -62,7 +62,11 @@ var btnCallback = function (t, opts) {
     items: [{
       text: 'Add to Clickup',
       callback: async function (t) {
-        console.log(t.getContext());
+
+        function closeBadge(t) {
+          return t.closePopup()
+        }
+
         var memberData = await t.member("all");
         console.log(memberData);
         var code = await t.loadSecret('code')
@@ -115,7 +119,7 @@ var btnCallback = function (t, opts) {
   .then(result =>{
     console.log(result);
     }).then(function() {
-      t.closePopup();
+      closeBadge();
     })
   .catch(error => console.log('error', error));
       }
