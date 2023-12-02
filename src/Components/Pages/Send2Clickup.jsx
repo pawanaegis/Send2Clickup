@@ -32,14 +32,17 @@ export default function Send2Clickup() {
     console.error('Error creating record:', error);
     // Handle error, show error message, etc.
   }
-     
   }
+  let closeWindow = () => {
+    let t = window.TrelloPowerUp.iframe();
+    t.closePopup();
+   }
   return (
    
     <>
      <div>
         <h1>Send Card to Clickup</h1>
-        {status?<Button Button variant="contained" color="success" disableElevation>Done</Button>:<Button
+        {status?<Button Button variant="contained" color="success" disableElevation onClick={closeWindow}>Done</Button>:<Button
       variant="contained"
       color={'primary'}
       disableElevation
