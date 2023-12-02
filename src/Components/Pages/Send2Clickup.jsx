@@ -1,4 +1,4 @@
-import React,{useRef, useState} from 'react'
+import React,{useState} from 'react'
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
@@ -9,10 +9,10 @@ import { dataForClickup } from '../Trello/trello';
 export default function Send2Clickup() {
   let [isLoading, setIsLoading] = useState(false);
   let [status, setStatus] = useState(false);
-  let cardData = useRef(dataForClickup());
 
-  console.log(cardData.current);
   let sendCardToClickup= async() => {
+    let cardData = await dataForClickup();
+    console.log(cardData);
     setIsLoading(true);
     try {
       const response = await axios.post(
