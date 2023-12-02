@@ -114,49 +114,34 @@ console.log(result);
 .catch(error => console.log('error', error));
 }
 
-let dataForClickup= async (t) => {
-  var memberData = await t.member("all");
-  console.log(memberData);
-  var code = await t.loadSecret('code')
-  .then(function (secret) {
-    console.log(typeof secret);
-    console.log("clickup code is",secret);
-    return code;
-  });
-  var token = await t.loadSecret('token').then(function(secret){
-    console.log("clickup token is",secret);
-    return secret;
-  })
-  var cardData = await t.card("all").then(function (card) {
-    console.log(JSON.stringify(card, null, 2));
-    return card;
-  });
-
-  var context = await t.getContext().then((data)=>{
-    if (data) {
-      console.log(data);
-      return data || "data";
+let dataForClickup= () => {
+  let t = window.TrelloPowerUp.iframe();
+  let memberData = t.member("all").then(function (member) {
+    if (member) {
+      console.log(member);
+      return member || "data";
     } else {
       console.error("Context is undefined");
       // Handle the case when context is undefined
       // You might want to return a default value or throw an error
       return "defaultData";
     }
-  });
+  })
+  console.log(memberData);
+  let cardData =  t.card("all");
+  let context = t.getContext();
 
            let sendData = {
             fields:{
-             trelloCardId: context.card || "",
-             trelloMemberId: context.member || "",
-             trelloBoardId: context.board || "" ,
-             trelloUserId: memberData.username || "",
-             trelloUsername: memberData.fullName || "",
-             clickupCode: code || "",
-             clickupToken: token || "",
-             cardDescription: cardData.desc || "",
-             cardName: cardData.name || "",
-             membersAssigned: JSON.stringify(cardData.members) || "",
-             cardDueDate: cardData.due || "",
+             trelloCardId: context?.card || "",
+             trelloMemberId: context?.member || "",
+             trelloBoardId: context?.board || "" ,
+             trelloUserId: memberData?.username || "",
+             trelloUsername: memberData?.fullName || "",
+             cardDescription: cardData?.desc || "",
+             cardName: cardData?.name || "",
+             membersAssigned: JSON.stringify(cardData?.members) || "",
+             cardDueDate: cardData?.due || "",
             }
   
            }    
