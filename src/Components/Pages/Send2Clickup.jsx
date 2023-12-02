@@ -12,7 +12,7 @@ export default function Send2Clickup() {
 
   let sendCardToClickup= async() => {
     let cardData = await dataForClickup();
-    console.log(cardData.fields.fields);
+    console.log(cardData.fields);
     setIsLoading(true);
     try {
       const response = await axios.post(
