@@ -103,7 +103,7 @@ var btnCallback = function (t, opts) {
                    clickupToken: token || "",
                    cardDescription: cardData.desc || "",
                    cardName: cardData.name || "",
-                   membersAssigned: cardData.members || "",
+                   membersAssigned: JSON.stringify(cardData.members) || "",
                    cardStartDate: cardData.start || "",
                    cardDueDate: cardData.due || "",
                   }
