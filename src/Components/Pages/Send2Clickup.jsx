@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useRef, useState} from 'react'
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
@@ -9,13 +9,15 @@ import { dataForClickup } from '../Trello/trello';
 export default function Send2Clickup() {
   let [isLoading, setIsLoading] = useState(false);
   let [status, setStatus] = useState(false);
-  let cardData = dataForClickup();
+  let cardData = useRef(dataForClickup());
+
+  console.log(cardData.current.fields);
   let sendCardToClickup= async() => {
     setIsLoading(true);
     try {
       const response = await axios.post(
         `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-        { fields: cardData },
+        { fields: cardData.current.fields },
         {
           headers: {
             Authorization: `Bearer ${config.airtable_api}`,
