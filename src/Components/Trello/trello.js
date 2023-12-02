@@ -56,18 +56,6 @@ let getTrelloCardData = () => {
   }
 }
 
-let getTrelloBoardData = () =>{
-  let boardData = window.TrelloPowerUp.initialize({
-    "board-buttons": function (t, opts) {
-      return t.board("all").then(function (board) {
-        console.log(JSON.stringify(board, null, 2));
-        return board;
-      });
-    },
-  })
-  return boardData;
-}
-
 var btnCallback = function (t, opts) {
   return t.popup({
     title: 'Send',
@@ -76,6 +64,7 @@ var btnCallback = function (t, opts) {
       callback: async function (t) {
         console.log(t.getContext());
         var memberData = await t.member("all");
+        console.log(memberData);
         var code = await t.loadSecret('code')
         .then(function (secret) {
           console.log(typeof secret);
@@ -91,14 +80,15 @@ var btnCallback = function (t, opts) {
           return card;
         });
 
-        var context = t.getContext();
+        var context = await t.getContext();
 
                  var data = {
                   fields:{
                    trelloCardId: context.card || "",
                    trelloMemberId: context.member || "",
                    trelloBoardId: context.board || "" ,
-                   trelloUsername: memberData.username || "",
+                   trelloUserId: memberData.username || "",
+                   trelloUsername: memberData.fullName || "",
                    clickupCode: code || "",
                    clickupToken: token || "",
                    cardDescription: cardData.desc || "",
