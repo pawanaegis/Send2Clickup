@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import config from '../config';
+import config from "../../config/config";
 
 
 export default function Send2Clickup() {
