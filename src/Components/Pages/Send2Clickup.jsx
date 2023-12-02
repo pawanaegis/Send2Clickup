@@ -17,7 +17,7 @@ export default function Send2Clickup() {
     try {
       const response = await axios.post(
         `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
-        { fields: cardData.current.fields },
+        { fields: cardData.fields.fields },
         {
           headers: {
             Authorization: `Bearer ${config.airtable_api}`,
