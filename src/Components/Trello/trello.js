@@ -114,22 +114,14 @@ console.log(result);
 .catch(error => console.log('error', error));
 }
 
-let dataForClickup= () => {
-  let t = window.TrelloPowerUp.iframe();
-  let memberData = t.member("all").then(function (member) {
-    if (member) {
-      console.log(member);
-      return member || "data";
-    } else {
-      console.error("Context is undefined");
-      // Handle the case when context is undefined
-      // You might want to return a default value or throw an error
-      return "defaultData";
-    }
-  })
+let dataForClickup= async() => {
+  var t = window.TrelloPowerUp.iframe();
+  let memberData = await t.member("all")
   console.log(memberData);
-  let cardData =  t.card("all");
-  let context = t.getContext();
+  let cardData =  await t.card("all");
+  console.log(cardData);
+  let context = await t.getContext();
+  console.log(context);
 
            let sendData = {
             fields:{
