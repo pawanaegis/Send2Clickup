@@ -6,6 +6,7 @@ const config = {
       appLogo: 'https://i.ibb.co/WxFms7W/send.png',
       airtable_base: process.env.REACT_APP_AIRTABLE_BASE,
       airtable_table: process.env.REACT_APP_AIRTABLE_TABLEID,
+      airtable_table_2 : process.env.REACT_APP_AIRTABLE_TABLEID_2,
 
     },
     production: {
@@ -15,6 +16,8 @@ const config = {
         appLogo: 'https://i.ibb.co/WxFms7W/send.png',
         airtable_base: process.env.REACT_APP_AIRTABLE_BASE,
         airtable_table: process.env.REACT_APP_AIRTABLE_TABLEID,
+        airtable_table_2 : process.env.REACT_APP_AIRTABLE_TABLEID_2,
+
     },
   };
   console.log(process.env.NODE_ENV);

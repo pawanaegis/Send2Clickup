@@ -13,7 +13,7 @@ const Signup =()=>{
       try {
           let memberData = await getMemberData();
           const response = await axios.post(
-            `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table}`,
+            `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: data, ...memberData },
             {
               headers: {
@@ -67,7 +67,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             var t = window.TrelloPowerUp.iframe();
-            registerUser({ClickupCode:code}).then(()=>{
+            registerUser({clickupCode:code}).then(()=>{
             t.closePopup();
             });
         } else {
