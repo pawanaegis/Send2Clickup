@@ -30,9 +30,6 @@ const Signup =()=>{
       }
      }
     useEffect(() => {
-      if(localStorage.getItem('code')){
-        navigate('/Send2Clickup.html')
-      }
       const handleMessage = (event) => {
         if (event.origin !== window.location.origin) {
             return;
