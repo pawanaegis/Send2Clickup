@@ -94,7 +94,6 @@ var btnCallback = function (t, opts) {
                    cardDescription: cardData.desc || "",
                    cardName: cardData.name || "",
                    membersAssigned: JSON.stringify(cardData.members) || "",
-                   cardStartDate: cardData.start || "",
                    cardDueDate: cardData.due || "",
                   }
         
