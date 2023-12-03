@@ -69,7 +69,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             var t = window.TrelloPowerUp.iframe();
-            registerUser({code}).then(()=>{
+            registerUser(code).then(()=>{
             t.closePopup();
             });
         } else {
