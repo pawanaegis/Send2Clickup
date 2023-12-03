@@ -59,8 +59,7 @@ let getMemberData = async () => {
     console.log(sendData);
     return sendData;
 }
-let getSecretCode = async() =>{
-    var t = window.TrelloPowerUp.iframe();
+let getSecretCode = async(t) =>{
     let secretCode = await t.loadSecret('code').then(function(){
         return secretCode;
     });
