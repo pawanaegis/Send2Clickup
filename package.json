@@ -1,7 +1,7 @@
 {
   "name": "sendtoclickup",
   "version": "0.1.0",
-  "proxy": "https://api.clickup.com",
+  "proxy": "http://local:3000",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
