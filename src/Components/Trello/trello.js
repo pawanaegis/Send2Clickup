@@ -46,10 +46,12 @@ let TrelloPowerUp = () => {
 let getMemberData = async () => {
     let t = window.TrelloPowerUp.iframe();
     let memberData = await t.member("all")
+    let context = await t.getContext();
     let sendData = {
         fields: {
             trelloUserId: memberData?.username || "",
             trelloUsername: memberData?.fullName || "",
+            trelloMemberId: context?.member || "",
         }
 
     }
