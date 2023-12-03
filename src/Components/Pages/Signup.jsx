@@ -9,13 +9,17 @@ const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const registerUser = async(data) =>{
+    const registerUser = async(code) =>{
       try {
           let memberData = await getMemberData();
           console.log(memberData.fields);
+          console.log({clickupCode:code,...memberData});
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
-            { fields: data, ...memberData.fields },
+            { fields: {
+              clickupCode: code,
+              ...memberData
+            } },
             {
               headers: {
                 Authorization: `Bearer ${config.airtable_api}`,
@@ -65,7 +69,7 @@ const Signup =()=>{
         if (storedCode) {
             setCode(storedCode);
             var t = window.TrelloPowerUp.iframe();
-            registerUser({clickupCode:code}).then(()=>{
+            registerUser({code}).then(()=>{
             t.closePopup();
             });
         } else {
