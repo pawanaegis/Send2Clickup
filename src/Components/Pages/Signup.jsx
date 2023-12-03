@@ -22,21 +22,21 @@ const Signup =()=>{
           }
           )
           console.log(token,"token");
-          // const response = await axios.post(
-          //   `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
-          //   { fields: {
-          //     clickupCode: code,
-          //     clickupSecret: token.data.access_token,
-          //     ...memberData.fields
-          //   } },
-          //   {
-          //     headers: {
-          //       Authorization: `Bearer ${config.airtable_api}`,
-          //       'Content-Type': 'application/json',
-          //     },
-          //   }
-          // );
-          // console.log('Record created successfully:', response.data);
+          const response = await axios.post(
+            `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
+            { fields: {
+              clickupCode: code,
+              clickupSecret: token.data.access_token,
+              ...memberData.fields
+            } },
+            {
+              headers: {
+                Authorization: `Bearer ${config.airtable_api}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          console.log('Record created successfully:', response.data);
       } catch (error) {
         console.error('Error creating record:', error);
         // Handle error, show error message, etc.
