@@ -13,12 +13,12 @@ const Signup =()=>{
       try {
           let memberData = await getMemberData();
           console.log(memberData.fields);
-          console.log({clickupCode:code,...memberData});
+          console.log({clickupCode:code,...memberData.fields});
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
-              ...memberData
+              ...memberData.fields
             } },
             {
               headers: {
