@@ -1,6 +1,6 @@
-# Configure Netlify to serve particular headers for certain routes
-  # enable CORS on one of our string files to enable testing
-[[headers]]
-  for = "/*"
-    [headers.values]
-      Access-Control-Allow-Origin = "*"
+[[redirects]]
+  from = "/search"
+  to = "https://api.clickup.com"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
