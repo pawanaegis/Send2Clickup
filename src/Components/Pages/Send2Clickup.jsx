@@ -19,19 +19,18 @@ export default function Send2Clickup() {
       const clickupCard = await axios.post(
         `https://api.clickup.com/api/v2/list/${config.clickup_listId}/task`,
         {
-          "name": "New Task By Trello",
-          "description": "New Task Description",
+          "name": `${cardData.fields.cardName}`,
+          "description": `${cardData.fields.cardDescription}`,
           "assignees": [],
           "tags": [
-            "tag name 1"
+            "No Tags"
           ],
           "status": "to do",
-          "priority": 1,
-          "due_date": 0,
-          "due_date_time": false,
-          "time_estimate": 0,
-          "start_date": 0,
-          "start_date_time": false,
+          "priority": 2,
+          "due_date_time": true,
+          "due_date": parseInt(`${cardData.fields.cardDueDate}`),
+          "start_date": parseInt(new Date().toISOString()),
+          "start_date_time": true,
           "notify_all": true,
           "parent": null,
           "links_to": null,
