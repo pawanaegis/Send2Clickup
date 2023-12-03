@@ -49,7 +49,7 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
-            let secret = t.loadSecret('token')
+            let secret = t.loadSecret('code')
             .then(function (secret) {
               console.log(secret);
               return secret;
