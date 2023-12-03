@@ -5,22 +5,27 @@ import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getMemberData } from "../Tools/trello";
-import { getToken } from "../Tools/clickupAPIs";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
     const navigate = useNavigate();
+      
     const registerUser = async(code) =>{
       try {
           let memberData = await getMemberData();
           console.log({clickupCode:code,...memberData.fields});
-          
-          const token = await getToken(code);
+          const token = await axios.post(`https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`
+          ,{
+            headers:{
+              'Content-Type': 'application/json',
+            }
+          }
+          )
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
-              clickupSecret: token,
+              clickupSecret: token.data.access_token,
               ...memberData.fields
             } },
             {
