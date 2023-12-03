@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {TrelloPowerUp} from "../Trello/trello";
+import {TrelloPowerUp} from "../Tools/trello";
 
 const Home =()=>{
     TrelloPowerUp();

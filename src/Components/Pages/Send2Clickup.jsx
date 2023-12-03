@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import config from "../../config/config";
-import { dataForClickup } from '../Trello/trello';
+import { dataForClickup } from '../Tools/trello';
 
 
 export default function Send2Clickup() {

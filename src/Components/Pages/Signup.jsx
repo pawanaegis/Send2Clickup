@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getMemberData } from "../Trello/trello";
+import { getMemberData } from "../Tools/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -49,12 +49,16 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
-            registerUser(receivedData).then(()=>{
+            let secret = t.loadSecret('token')
+            .then(function (secret) {
+              console.log(secret);
+              return secret;
+            });
+            console.log(secret);
+            registerUser(secret).then(()=>{
           t.closePopup();
           });
           }
-          
-         
         } 
         setIsLoading(false);
     };
