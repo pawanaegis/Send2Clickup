@@ -18,13 +18,10 @@ const Signup =()=>{
           ,{
             headers:{
               'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': 'https://send2clickup.netlify.app',
-              'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type'
-
             }
           }
           )
+          console.log(token,"token");
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
