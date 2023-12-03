@@ -33,6 +33,7 @@ const Signup =()=>{
         // Handle error, show error message, etc.
       }
      }
+
     useEffect(() => {
       const handleMessage = (event) => {
         if (event.origin !== window.location.origin) {
@@ -47,6 +48,12 @@ const Signup =()=>{
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
+          if(!receivedData){
+            registerUser(code).then(()=>{
+          t.closePopup();
+          });
+          }
+          
          
         } 
         setIsLoading(false);
@@ -57,11 +64,7 @@ const Signup =()=>{
           const authorizationCode = urlParams.get('code');
           
           if (authorizationCode) {
-            let data2 = {ClickupCode:authorizationCode}
-            var t = window.TrelloPowerUp.iframe();
-            t.set('member', 'private', 'code', authorizationCode).then((res)=>{
-               console.log(JSON.stringify(res));
-            });
+            let data2 = {ClickupCode:authorizationCode}            
             console.log(data2);
             window.opener.postMessage(authorizationCode, '*');
             window.close();         
@@ -72,10 +75,6 @@ const Signup =()=>{
         const storedCode = localStorage.getItem('code');
         if (storedCode) {
             setCode(storedCode);
-            var t = window.TrelloPowerUp.iframe();
-            registerUser(code).then(()=>{
-            t.closePopup();
-            });
         } else {
             extractCodeFromURL();
         }
