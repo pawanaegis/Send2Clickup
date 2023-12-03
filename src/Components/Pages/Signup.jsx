@@ -35,7 +35,7 @@ const Signup =()=>{
      }
 
     useEffect(() => {
-      const handleMessage = (event) => {
+      const handleMessage = async(event) => {
         if (event.origin !== window.location.origin) {
             return;
         }
@@ -49,7 +49,7 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
-            let secret = t.loadSecret('code')
+            let secret = await t.loadSecret('code')
             .then(function (secret) {
               console.log(secret);
               return secret;
