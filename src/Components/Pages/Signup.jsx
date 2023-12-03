@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getMemberData, getSecretCode } from "../Tools/trello";
+import { getMemberData } from "../Tools/trello";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -44,18 +44,13 @@ const Signup =()=>{
         const receivedData = event.data;
         console.log('Received data from child window:', receivedData);
         if(typeof receivedData === 'string'){
-          let t = window.TrelloPowerUp.iframe();
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
-          t.storeSecret('code', receivedData).then(async(t)=>{
-            if(receivedData){
-              let codeSecret = await getSecretCode(t);
-              console.log(codeSecret,"codesecret in signup page");
-              registerUser(codeSecret).then((t)=>{
-                t.closePopup();
-                });
-            }
-          });
+          if(receivedData){
+            registerUser(receivedData).then((t)=>{
+              t.closePopup();
+              });
+          }
           
         } 
         setIsLoading(false);
