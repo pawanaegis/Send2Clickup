@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import config from "../../config/config";
 import { dataForClickup } from '../Tools/trello';
+import bigInt from 'big-integer';
 
 
 export default function Send2Clickup() {
@@ -28,8 +29,8 @@ export default function Send2Clickup() {
           "status": "to do",
           "priority": 2,
           "due_date_time": true,
-          "due_date": parseInt(`${cardData.fields.cardDueDate}`),
-          "start_date": parseInt(new Date().toISOString()),
+          "due_date": Number(bigInt(cardData.fields.cardDueDate)),
+          "start_date": Number(bigInt(new Date().getTime())),
           "start_date_time": true,
           "notify_all": true,
           "parent": null,
