@@ -5,6 +5,7 @@ import config from "../../config/config";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getMemberData } from "../Tools/trello";
+import { getToken } from "../Tools/clickupAPIs";
 const Signup =()=>{
     let [code, setCode] = useState(null);
     let [isLoading,setIsLoading] = useState(false);
@@ -12,12 +13,14 @@ const Signup =()=>{
     const registerUser = async(code) =>{
       try {
           let memberData = await getMemberData();
-          console.log(memberData.fields);
           console.log({clickupCode:code,...memberData.fields});
+          
+          const token = await getToken(code);
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
+              clickupSecret: token,
               ...memberData.fields
             } },
             {
