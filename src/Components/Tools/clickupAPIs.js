@@ -1,14 +1,21 @@
 import axios from 'axios';
-import config from "../../config/config";
+import config from '../../config/config';
 
 let getToken = async(code) =>{
+    
 try {
-    const response = await axios.post(
-        `https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`,
-      );
-
-      console.log(response.data.access_token);
-      return response.data.access_token;
+    let request = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`,
+        headers: { }
+      };
+      
+      axios.request(request)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        return response.data.access_token;
+      })
 } catch (error) {
     return error;
  }
