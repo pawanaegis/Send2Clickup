@@ -8,6 +8,7 @@ const config = {
       airtable_base: process.env.REACT_APP_AIRTABLE_BASE,
       airtable_table: process.env.REACT_APP_AIRTABLE_TABLEID,
       airtable_table_2 : process.env.REACT_APP_AIRTABLE_TABLEID_2,
+      clickup_listId :"901600397481"
 
     },
     production: {
@@ -19,6 +20,7 @@ const config = {
         airtable_base: process.env.REACT_APP_AIRTABLE_BASE,
         airtable_table: process.env.REACT_APP_AIRTABLE_TABLEID,
         airtable_table_2 : process.env.REACT_APP_AIRTABLE_TABLEID_2,
+        clickup_listId :"901600397481"
 
     },
   };
