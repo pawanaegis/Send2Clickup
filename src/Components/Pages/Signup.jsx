@@ -44,16 +44,12 @@ const Signup =()=>{
         const receivedData = event.data;
         console.log('Received data from child window:', receivedData);
         if(typeof receivedData === 'string'){
-          var t = window.TrelloPowerUp.iframe();
+          let t = window.TrelloPowerUp.iframe();
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
-            let secret = await t.loadSecret('code')
-            .then(function (secret) {
-              console.log(secret);
-              return secret;
-            });
+            let secret = await t.loadSecret('code');
             console.log(secret);
             registerUser(secret).then(()=>{
           t.closePopup();
