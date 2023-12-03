@@ -9,8 +9,8 @@ import { dataForClickup } from '../Tools/trello';
 export default function Send2Clickup() {
   let [isLoading, setIsLoading] = useState(false);
   let [status, setStatus] = useState(false);
-  let [token, setToken] = useState(null);
-  setToken(localStorage.getItem('token'));
+  let token = localStorage.getItem('token')||null;
+  console.log(token);
   let sendCardToClickup= async() => {
     let cardData = await dataForClickup();
     console.log(cardData.fields);
@@ -74,7 +74,7 @@ export default function Send2Clickup() {
     <>
      <div>
         <h2>Send Card to Clickup</h2>
-        {token?<>{status?<Button Button variant="contained" color="success" disableElevation onClick={closeWindow}>Done</Button>:<Button
+        {!token? <Button variant="contained" color="secondary" disableElevation onClick={closeWindow} >Please Login Your Clickup Account to Send Card</Button> :<>{status?<Button Button variant="contained" color="success" disableElevation onClick={closeWindow}>Done</Button>:<Button
       variant="contained"
       color={'primary'}
       disableElevation
@@ -96,7 +96,7 @@ export default function Send2Clickup() {
     }}
     >
       {isLoading ? 'Sending...' : 'Send Card'}
-    </Button>}</>:<Button Button variant="contained" color="danger" disableElevation >Please Login Your Clickup Account to Send Card</Button>}
+    </Button>}</>}
         
      </div>
     </>
