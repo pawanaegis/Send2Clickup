@@ -29,7 +29,7 @@ export default function Send2Clickup() {
           "status": "to do",
           "priority": 2,
           "due_date_time": true,
-          "due_date": Number(bigInt(cardData.fields.cardDueDate)),
+          "due_date": Number(bigInt(toString(cardData.fields.cardDueDate))),
           "start_date": Number(bigInt(new Date().getTime())),
           "start_date_time": true,
           "notify_all": true,
