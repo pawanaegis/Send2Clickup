@@ -18,8 +18,7 @@ export default function Send2Clickup() {
     try {
       const clickupCard = await axios.post(
         `https://api.clickup.com/api/v2/list/${config.clickup_listId}/task`,
-        { 
-          data:{
+        {
           "name": "New Task By Trello",
           "description": "New Task Description",
           "assignees": [],
@@ -35,8 +34,7 @@ export default function Send2Clickup() {
           "start_date_time": false,
           "notify_all": true,
           "parent": null,
-          "links_to": null
-        }
+          "links_to": null,
       },
         {
           headers: {
