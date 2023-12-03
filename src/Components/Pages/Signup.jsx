@@ -35,7 +35,7 @@ const Signup =()=>{
      }
 
     useEffect(() => {
-      const handleMessage = async(event) => {
+      const handleMessage = (event) => {
 
         if (event.origin !== window.location.origin) {
             return;
@@ -47,13 +47,16 @@ const Signup =()=>{
           let t = window.TrelloPowerUp.iframe();
           setCode(receivedData);
           localStorage.setItem('code', receivedData);
-          t.storeSecret('code', receivedData);
-          if(receivedData){
-            let codeSecret = await getSecretCode();
-            registerUser(codeSecret).then(()=>{
-              t.closePopup();
-              });
-          }
+          t.storeSecret('code', receivedData).then(async()=>{
+            if(receivedData){
+              let codeSecret = await getSecretCode();
+              console.log(codeSecret,"codesecret in signup page");
+              registerUser(codeSecret).then(()=>{
+                t.closePopup();
+                });
+            }
+          });
+          
         } 
         setIsLoading(false);
     };
