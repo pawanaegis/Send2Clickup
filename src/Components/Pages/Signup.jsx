@@ -26,7 +26,7 @@ const Signup =()=>{
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
-              clickupSecret: 'token.data.access_token',
+              clickupToken: code,
               ...memberData.fields
             } },
             {
