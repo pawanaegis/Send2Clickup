@@ -14,19 +14,19 @@ const Signup =()=>{
       try {
           let memberData = await getMemberData();
           console.log({clickupCode:code,...memberData.fields});
-          const token = await axios.post(`https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`
-          ,{
-            headers:{
-              'Content-Type': 'application/json',
-            }
-          }
-          )
-          console.log(token,"token");
+          // const token = await axios.post(`https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`
+          // ,{
+          //   headers:{
+          //     'Content-Type': 'application/json',
+          //   }
+          // }
+          // )
+          // console.log(token,"token");
           const response = await axios.post(
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
-              clickupSecret: token.data.access_token,
+              clickupSecret: 'token.data.access_token',
               ...memberData.fields
             } },
             {
