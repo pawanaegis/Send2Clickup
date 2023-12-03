@@ -17,7 +17,9 @@ const Signup =()=>{
           const token = await axios.post(`https://api.clickup.com/api/v2/oauth/token?client_id=${config.clickupClientId}&client_secret=${config.clickupSecret}&code=${code}`
           ,{
             headers:{
-              'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':' https://api.clickup.com',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type',
             }
           }
           )
@@ -26,7 +28,7 @@ const Signup =()=>{
             `https://api.airtable.com/v0/${config.airtable_base}/${config.airtable_table_2}`,
             { fields: {
               clickupCode: code,
-              clickupToken: token.data.access_token,
+              clickupToken: 'code',
               ...memberData.fields
             } },
             {
