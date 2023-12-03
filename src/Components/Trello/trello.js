@@ -62,11 +62,11 @@ let getMemberData = async () => {
 let dataForClickup = async () => {
     var t = window.TrelloPowerUp.iframe();
     let memberData = await t.member("all")
-    console.log(memberData);
+    console.log({memberData});
     let cardData = await t.card("all");
-    console.log(cardData);
+    console.log({cardData});
     let context = await t.getContext();
-    console.log(context);
+    console.log({context});
 
     let sendData = {
         fields: {
