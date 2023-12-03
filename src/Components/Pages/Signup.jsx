@@ -59,7 +59,9 @@ const Signup =()=>{
           if (authorizationCode) {
             let data2 = {ClickupCode:authorizationCode}
             var t = window.TrelloPowerUp.iframe();
-            t.set('member', 'private', 'code', authorizationCode);
+            t.set('member', 'private', 'code', authorizationCode).then((res)=>{
+               console.log(JSON.stringify(res));
+            });
             console.log(data2);
             window.opener.postMessage(authorizationCode, '*');
             window.close();         
