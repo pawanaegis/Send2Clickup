@@ -49,12 +49,19 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
+            let clickupCode;
             let t = window.TrelloPowerUp.iframe();
-            let secret = await t.loadSecret('code');
-            console.log(secret);
-            registerUser(secret).then(()=>{
-          t.closePopup();
-          });
+            t.loadSecret('code').then(function(secret){
+              console.log(JSON.stringify(secret));
+              clickupCode = secret;
+              console.log(secret);
+            registerUser(clickupCode).then(()=>{
+              t.closePopup();
+              });
+            });
+            registerUser(clickupCode).then(()=>{
+              t.closePopup();
+              });
           }
         } 
         setIsLoading(false);
