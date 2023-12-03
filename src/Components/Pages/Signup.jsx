@@ -49,7 +49,7 @@ const Signup =()=>{
           localStorage.setItem('code', receivedData);
           t.storeSecret('code', receivedData);
           if(receivedData){
-            let secretCode = getSecretCode();
+            let secretCode = await getSecretCode();
             console.log(secretCode);
             registerUser(secretCode).then(()=>{
               t.closePopup();
