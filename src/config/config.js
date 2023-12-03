@@ -1,6 +1,7 @@
 const config = {
     development: {
       clickupURL: process.env.REACT_APP_CLICKUP_URL_DEV,
+      clickupClientId: process.env.REACT_APP_CLICKUP_CLIENTID_DEV,
       clickupSecret: process.env.REACT_APP_CLICKUP_SECRET_DEV,
       airtable_api: process.env.REACT_APP_AIRTABLE_API,
       appLogo: 'https://i.ibb.co/WxFms7W/send.png',
@@ -11,7 +12,8 @@ const config = {
     },
     production: {
         clickupURL: process.env.REACT_APP_CLICKUP_URL_PROD,
-        clickupSecret: process.env.REACT_APP_CLICKUP_SECRET_DEV,
+        clickupClientId: process.env.REACT_APP_CLICKUP_CLIENTID_PROD,
+        clickupSecret: process.env.REACT_APP_CLICKUP_SECRET_PROD,
         airtable_api: process.env.REACT_APP_AIRTABLE_API,
         appLogo: 'https://i.ibb.co/WxFms7W/send.png',
         airtable_base: process.env.REACT_APP_AIRTABLE_BASE,
